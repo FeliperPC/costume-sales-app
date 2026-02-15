@@ -18,14 +18,6 @@ export const suitType = defineType({
       options: { source: 'name' },
       description: 'homem-aranha',
     }),
-    defineField({
-      name: 'teaser',
-      title: 'Chamada do Card (Resumo)',
-      type: 'text',
-      rows: 2,
-      description: 'Traje réplica emborrachado com variações',
-    }),
-
     // --- LISTA DE VERSÕES COM DADOS INDEPENDENTES ---
     defineField({
       name: 'versions',

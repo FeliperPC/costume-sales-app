@@ -14,8 +14,8 @@ export default function Navbar() {
           <div className="w-10 h-10 bg-gradient-to-tr from-purple-600 to-pink-500 rounded-lg flex items-center justify-center">
             <VenetianMaskIcon />
           </div>
-          <span className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-200">
-            pinda.studio
+          <span className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
+            PINDA STUDIO
           </span>
         </Link>
 
