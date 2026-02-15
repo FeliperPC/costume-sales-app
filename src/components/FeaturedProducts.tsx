@@ -3,15 +3,6 @@ import { SUITS_QUERY } from "@/sanity/lib/queries";
 import Link from "next/link";
 import { ProductCard } from "./ProductCard";
 
-type Product = {
-  id: string;
-  title: string;
-  slug: string;
-  images: string[];
-  category: string;
-  hero: string;
-};
-
 export default async function FeaturedProducts() {
   const {data} = await sanityFetch({query:SUITS_QUERY})
   return (
