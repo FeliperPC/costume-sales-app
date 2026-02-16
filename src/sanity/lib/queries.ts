@@ -1,19 +1,15 @@
 import { defineQuery } from "next-sanity";
 
-export const SUITS_QUERY = defineQuery(`
+export const SUITS_CARD_QUERY = defineQuery(`
   *[_type == "suit" && defined(slug.current)]
   | order(_createdAt desc) {
     _id,
     _createdAt,
     name,
     slug,
-    versions[]{
-      versionName,
-      price,
-      fullDescription,
-      images[]{
+    versions[0]{
+      images[0]{
         asset->{
-          _id,
           url
         }
       }
@@ -33,4 +29,25 @@ export const REVIEWERS_QUERY = defineQuery(`
       }
     }
   }
+`);
+
+export const SUITS_CARD_PAGINATED_QUERY = defineQuery(`
+{
+  "products": *[_type == "suit"] 
+    | order(publishedAt desc) 
+    [$start...$end]{
+      _id,
+    _createdAt,
+    name,
+    slug,
+    versions[0]{
+      images[0]{
+        asset->{
+          url
+        }
+      }
+    }
+  },
+  "total": count(*[_type == "suit"])
+}
 `);

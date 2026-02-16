@@ -34,7 +34,7 @@ export function Hero() {
 
           <h1 className="text-5xl md:text-8xl font-black mb-6 leading-none">
             DÊ VIDA AO SEU <br />
-            <span className="text-purple-500">PERSONAGEM.</span>
+            <span className="text-purple-500">PERSONAGEM</span>
           </h1>
 
           <p className="text-lg text-gray-400 mb-8 max-w-lg">

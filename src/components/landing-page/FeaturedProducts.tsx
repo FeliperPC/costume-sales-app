@@ -1,10 +1,10 @@
 import { sanityFetch } from "@/sanity/lib/live";
-import { SUITS_QUERY } from "@/sanity/lib/queries";
+import { SUITS_CARD_QUERY } from "@/sanity/lib/queries";
 import Link from "next/link";
 import { ProductCard } from "../ProductCard";
 
 export default async function FeaturedProducts() {
-  const {data} = await sanityFetch({query:SUITS_QUERY})
+  const {data} = await sanityFetch({query:SUITS_CARD_QUERY})
   return (
     <section className="py-24 bg-zinc-900/30">
       <div className="max-w-7xl mx-auto px-4">

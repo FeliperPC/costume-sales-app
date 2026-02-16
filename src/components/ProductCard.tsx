@@ -4,8 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Suit, SUITS_QUERY_RESULT } from "@/sanity/types";
 
 export function ProductCard({ product }: any) {
-  const imageUrl = product.versions[0].images[0].asset.url;
-
+  const imageUrl = product.versions.images.asset.url;
   return (
     <Link href={`/trajes/${product.slug.current}`} className="group block">
       <Card className="relative aspect-[3/4] rounded-3xl overflow-hidden border-0 bg-transparent shadow-none p-0 cursor-pointer">
