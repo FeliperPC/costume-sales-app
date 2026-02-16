@@ -53,7 +53,7 @@ export function Footer() {
 
           <Link
             href="mailto:contato@nexuscosplay.com"
-            className="text-purple-400 font-bold hover:underline"
+            className="text-purple-400 font-bold hover:underlinnpe"
           >
             contato@nexuscosplay.com
           </Link>

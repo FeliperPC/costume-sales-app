@@ -1,16 +1,21 @@
-import FeaturedProducts from "@/components/FeaturedProducts";
-import { Hero } from "@/components/Hero";
-import { sanityFetch } from "@/sanity/lib/live";
-import { SUITS_QUERY } from "@/sanity/lib/queries";
+import ClientsReview from "@/components/landing-page/ClientsReview";
+import FeaturedProducts from "@/components/landing-page/FeaturedProducts";
+import { Hero } from "@/components/landing-page/Hero";
+import StatsSection from "@/components/landing-page/StatsSection";
+import WhatsAppButton from "@/components/WhatsAppBtn";
 import { Suspense } from "react";
 
 export default async function Home() {
   return (
     <div className="pt-20 bg-zinc-950 text-white min-h-screen">
-      {/* Hero Section */}
+      <WhatsAppButton />
       <Hero />
-      <Suspense fallback={<div>Loading ...</div>}>
+      <Suspense fallback={<div>Loading products review ...</div>}>
         <FeaturedProducts />
+      </Suspense>
+      <StatsSection />
+      <Suspense fallback={<div>Loading clients review...</div>}>
+        <ClientsReview />
       </Suspense>
     </div>
   );

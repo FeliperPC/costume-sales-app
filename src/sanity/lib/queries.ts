@@ -20,3 +20,17 @@ export const SUITS_QUERY = defineQuery(`
     }
   }
 `);
+
+export const REVIEWERS_QUERY = defineQuery(`
+  *[_type == "review"]
+  | order(_createdAt desc)[0...3]{
+    _id,
+    name,
+    clientReview,
+    image{
+      asset->{
+        url
+      }
+    }
+  }
+`);

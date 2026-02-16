@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
-import heroBackground from "../assets/heroBackground.avif"
+import heroBackground from "../../assets/heroBackground.avif"
 
 interface HeroProps {
   onCatalogClick?: () => void;
@@ -26,7 +26,7 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 w-full mt-20">
         <div className="max-w-2xl">
           <span className="inline-block px-3 py-1 bg-purple-500/20 border border-purple-500/50 rounded-full text-purple-400 text-xs font-bold uppercase tracking-widest mb-6">
             Elite CosplayMaker

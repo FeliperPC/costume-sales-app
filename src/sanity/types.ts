@@ -286,10 +286,42 @@ export type SUITS_QUERY_RESULT = Array<{
   }> | null;
 }>;
 
+// Source: src/sanity/lib/queries.ts
+// Variable: REVIEWERS_QUERY
+// Query: *[_type == "review"]  | order(_createdAt desc)[0...3]{    _id,    name,    clientReview,    image{      asset->{        url      }    }  }
+export type REVIEWERS_QUERY_RESULT = Array<{
+  _id: string;
+  name: string | null;
+  clientReview: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  image: {
+    asset: {
+      url: string | null;
+    } | null;
+  } | null;
+}>;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '\n  *[_type == "suit" && defined(slug.current)]\n  | order(_createdAt desc) {\n    _id,\n    _createdAt,\n    name,\n    slug,\n    versions[]{\n      versionName,\n      price,\n      fullDescription,\n      images[]{\n        asset->{\n          _id,\n          url\n        }\n      }\n    }\n  }\n': SUITS_QUERY_RESULT;
+    '\n  *[_type == "review"]\n  | order(_createdAt desc)[0...3]{\n    _id,\n    name,\n    clientReview,\n    image{\n      asset->{\n        url\n      }\n    }\n  }\n': REVIEWERS_QUERY_RESULT;
   }
 }
