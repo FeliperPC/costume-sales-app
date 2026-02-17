@@ -298,48 +298,20 @@ export type REVIEWERS_QUERY_RESULT = Array<{
 
 // Source: src/sanity/lib/queries.ts
 // Variable: SUITS_CARD_PAGINATED_QUERY
-// Query: {  "products": *[_type == "suit"]     | order(publishedAt desc)     [$start...$end]{      _id,      name,      slug,     versions[]{      versionName,      price,      fullDescription,      images[]{        asset->{          _id,          url        }      }    }    },  "total": count(*[_type == "suit"])}
+// Query: {  "products": *[_type == "suit"]     | order(publishedAt desc)     [$start...$end]{      _id,    _createdAt,    name,    slug,    versions[0]{      images[0]{        asset->{          url        }      }    }  },  "total": count(*[_type == "suit"])}
 export type SUITS_CARD_PAGINATED_QUERY_RESULT = {
   products: Array<{
     _id: string;
+    _createdAt: string;
     name: string | null;
     slug: Slug | null;
-    versions: Array<{
-      versionName: string | null;
-      price: number | null;
-      fullDescription: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?:
-          | "blockquote"
-          | "h1"
-          | "h2"
-          | "h3"
-          | "h4"
-          | "h5"
-          | "h6"
-          | "normal";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }> | null;
-      images: Array<{
+    versions: {
+      images: {
         asset: {
-          _id: string;
           url: string | null;
         } | null;
-      }> | null;
-    }> | null;
+      } | null;
+    } | null;
   }>;
   total: number;
 };
@@ -350,6 +322,6 @@ declare module "@sanity/client" {
   interface SanityQueries {
     '\n  *[_type == "suit" && defined(slug.current)]\n  | order(_createdAt desc) {\n    _id,\n    _createdAt,\n    name,\n    slug,\n    versions[0]{\n      images[0]{\n        asset->{\n          url\n        }\n      }\n    }\n  }\n': SUITS_CARD_QUERY_RESULT;
     '\n  *[_type == "review"]\n  | order(_createdAt desc)[0...3]{\n    _id,\n    name,\n    clientReview,\n    image{\n      asset->{\n        url\n      }\n    }\n  }\n': REVIEWERS_QUERY_RESULT;
-    '\n{\n  "products": *[_type == "suit"] \n    | order(publishedAt desc) \n    [$start...$end]{\n      _id,\n      name,\n      slug,\n     versions[]{\n      versionName,\n      price,\n      fullDescription,\n      images[]{\n        asset->{\n          _id,\n          url\n        }\n      }\n    }\n    },\n  "total": count(*[_type == "suit"])\n}\n': SUITS_CARD_PAGINATED_QUERY_RESULT;
+    '\n{\n  "products": *[_type == "suit"] \n    | order(publishedAt desc) \n    [$start...$end]{\n      _id,\n    _createdAt,\n    name,\n    slug,\n    versions[0]{\n      images[0]{\n        asset->{\n          url\n        }\n      }\n    }\n  },\n  "total": count(*[_type == "suit"])\n}\n': SUITS_CARD_PAGINATED_QUERY_RESULT;
   }
 }

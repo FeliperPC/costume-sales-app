@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
-import { Suit, SUITS_QUERY_RESULT } from "@/sanity/types";
+import { Suit } from "@/sanity/types";
 
 export function ProductCard({ product }: any) {
   const imageUrl = product.versions.images.asset.url;
