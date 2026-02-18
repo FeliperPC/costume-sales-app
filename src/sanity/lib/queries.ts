@@ -51,3 +51,34 @@ export const SUITS_CARD_PAGINATED_QUERY = defineQuery(`
   "total": count(*[_type == "suit"])
 }
 `);
+
+export const GET_SUIT_BY_SLUG_QUERY = defineQuery(`
+*[
+  _type == "suit" &&
+  slug.current == $slug
+][0]{
+  _id,
+  "name": coalesce(name, ""),
+  slug,
+
+  "versions": coalesce(versions, [])[]{
+    _key,
+    "versionName": coalesce(versionName, ""),
+    "price": coalesce(price, 0),
+    "fullDescription": coalesce(fullDescription, []),
+
+    "images": coalesce(images, [])[]{
+      _key,
+      "asset": asset->{
+        _id,
+        "url": coalesce(url, ""),
+        metadata {
+          dimensions
+        }
+      }
+    }
+  }
+}
+`)
+
+

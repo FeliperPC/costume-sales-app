@@ -29,7 +29,7 @@ export default async function SuitsPage({
 }: {
   searchParams: Promise<{ page: string }>;
 }) {
-  const ITEMS_PER_PAGE = 3;
+  const ITEMS_PER_PAGE = 6;
   const currentPage = Number((await searchParams).page) || 1;
 
   const start = (currentPage - 1) * ITEMS_PER_PAGE;

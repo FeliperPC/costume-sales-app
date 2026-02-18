@@ -316,6 +316,62 @@ export type SUITS_CARD_PAGINATED_QUERY_RESULT = {
   total: number;
 };
 
+// Source: src/sanity/lib/queries.ts
+// Variable: GET_SUIT_BY_SLUG_QUERY
+// Query: *[  _type == "suit" &&  slug.current == $slug][0]{  _id,  "name": coalesce(name, ""),  slug,  "versions": coalesce(versions, [])[]{    _key,    "versionName": coalesce(versionName, ""),    "price": coalesce(price, 0),    "fullDescription": coalesce(fullDescription, []),    "images": coalesce(images, [])[]{      _key,      "asset": asset->{        _id,        "url": coalesce(url, ""),        metadata {          dimensions        }      }    }  }}
+export type GET_SUIT_BY_SLUG_QUERY_RESULT = {
+  _id: string;
+  name: string | "";
+  slug: Slug | null;
+  versions:
+    | Array<{
+        _key: string;
+        versionName: string | "";
+        price: number | 0;
+        fullDescription:
+          | Array<{
+              children?: Array<{
+                marks?: Array<string>;
+                text?: string;
+                _type: "span";
+                _key: string;
+              }>;
+              style?:
+                | "blockquote"
+                | "h1"
+                | "h2"
+                | "h3"
+                | "h4"
+                | "h5"
+                | "h6"
+                | "normal";
+              listItem?: "bullet" | "number";
+              markDefs?: Array<{
+                href?: string;
+                _type: "link";
+                _key: string;
+              }>;
+              level?: number;
+              _type: "block";
+              _key: string;
+            }>
+          | Array<never>;
+        images:
+          | Array<{
+              _key: string;
+              asset: {
+                _id: string;
+                url: string | "";
+                metadata: {
+                  dimensions: SanityImageDimensions | null;
+                } | null;
+              } | null;
+            }>
+          | Array<never>;
+      }>
+    | Array<never>;
+} | null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -323,5 +379,6 @@ declare module "@sanity/client" {
     '\n  *[_type == "suit" && defined(slug.current)]\n  | order(_createdAt desc) {\n    _id,\n    _createdAt,\n    name,\n    slug,\n    versions[0]{\n      images[0]{\n        asset->{\n          url\n        }\n      }\n    }\n  }\n': SUITS_CARD_QUERY_RESULT;
     '\n  *[_type == "review"]\n  | order(_createdAt desc)[0...3]{\n    _id,\n    name,\n    clientReview,\n    image{\n      asset->{\n        url\n      }\n    }\n  }\n': REVIEWERS_QUERY_RESULT;
     '\n{\n  "products": *[_type == "suit"] \n    | order(publishedAt desc) \n    [$start...$end]{\n      _id,\n    _createdAt,\n    name,\n    slug,\n    versions[0]{\n      images[0]{\n        asset->{\n          url\n        }\n      }\n    }\n  },\n  "total": count(*[_type == "suit"])\n}\n': SUITS_CARD_PAGINATED_QUERY_RESULT;
+    '\n*[\n  _type == "suit" &&\n  slug.current == $slug\n][0]{\n  _id,\n  "name": coalesce(name, ""),\n  slug,\n\n  "versions": coalesce(versions, [])[]{\n    _key,\n    "versionName": coalesce(versionName, ""),\n    "price": coalesce(price, 0),\n    "fullDescription": coalesce(fullDescription, []),\n\n    "images": coalesce(images, [])[]{\n      _key,\n      "asset": asset->{\n        _id,\n        "url": coalesce(url, ""),\n        metadata {\n          dimensions\n        }\n      }\n    }\n  }\n}\n': GET_SUIT_BY_SLUG_QUERY_RESULT;
   }
 }

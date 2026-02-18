@@ -9,7 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@sanity/client": "^7.15.0",
     "@sanity/image-url": "^1.2.0",
+    "@sanity/sdk-react": "^2.7.0",
     "@sanity/vision": "^4.22.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

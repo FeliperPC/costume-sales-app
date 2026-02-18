@@ -29,7 +29,7 @@ export function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 w-full mt-20">
         <div className="max-w-2xl">
           <span className="inline-block px-3 py-1 bg-purple-500/20 border border-purple-500/50 rounded-full text-purple-400 text-xs font-bold uppercase tracking-widest mb-6">
-            Elite CosplayMaker
+            Elite Cosmaker
           </span>
 
           <h1 className="text-5xl md:text-8xl font-black mb-6 leading-none">
