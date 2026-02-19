@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ShieldCheck, Instagram, Twitter, VenetianMaskIcon } from "lucide-react";
+import Logo from "./Logo";
 
 export function Footer() {
   return (
@@ -12,12 +13,7 @@ export function Footer() {
         {/* Brand */}
         <Card className="bg-transparent border-0 shadow-none p-0 md:col-span-2">
           <div className="flex items-center gap-2 mb-6">
-            <div className="w-8 h-8 bg-purple-600 rounded flex items-center justify-center">
-              <VenetianMaskIcon className="text-white" size={16} />
-            </div>
-            <span className="text-xl font-black text-white">
-              PINDA STUDIO
-            </span>
+            <Logo />
           </div>
 
           <p className="text-gray-500 max-w-sm mb-8">

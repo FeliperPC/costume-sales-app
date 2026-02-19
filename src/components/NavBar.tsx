@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ShieldCheck, Menu, X, VenetianMaskIcon } from "lucide-react";
+import Logo from "./Logo";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,12 +12,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 cursor-pointer">
-          <div className="w-10 h-10 bg-gradient-to-tr from-purple-600 to-pink-500 rounded-lg flex items-center justify-center">
-            <VenetianMaskIcon />
-          </div>
-          <span className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
-            PINDA STUDIO
-          </span>
+          <Logo />
         </Link>
 
         {/* Desktop Menu */}
