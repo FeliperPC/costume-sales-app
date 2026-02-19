@@ -1,7 +1,7 @@
 import { sanityFetch } from "@/sanity/lib/live";
 import { SUITS_CARD_QUERY } from "@/sanity/lib/queries";
 import Link from "next/link";
-import { ProductCard } from "../ProductCard";
+import { ProductCard } from "../product/ProductCard";
 
 export default async function FeaturedProducts() {
   const {data} = await sanityFetch({query:SUITS_CARD_QUERY})

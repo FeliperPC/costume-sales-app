@@ -1,5 +1,5 @@
-import { ProductCard } from "@/components/ProductCard";
-import SuitsList from "@/components/SuitsList";
+import { ProductCard } from "@/components/product/ProductCard";
+import SuitsList from "@/components/product/SuitsList";
 import { Input } from "@/components/ui/input";
 import { client } from "@/sanity/lib/client";
 import { SUITS_CARD_PAGINATED_QUERY } from "@/sanity/lib/queries";

@@ -1,5 +1,6 @@
 import { Footer } from "@/components/Footer";
 import Navbar from "@/components/NavBar";
+import WhatsAppButton from "@/components/WhatsAppBtn";
 import { SanityLive } from "@/sanity/lib/live";
 
 export default function RootLayout({
@@ -10,6 +11,7 @@ export default function RootLayout({
   return (
     <main>
       <Navbar />
+      <WhatsAppButton />
       {children}
       <Footer />
       <SanityLive />

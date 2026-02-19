@@ -41,26 +41,10 @@
         },
         "optional": true
       },
-      "availabilityRange": {
+      "reopenDate": {
         "type": "objectAttribute",
         "value": {
-          "type": "object",
-          "attributes": {
-            "from": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
-            },
-            "to": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
-            }
-          }
+          "type": "string"
         },
         "optional": true
       }

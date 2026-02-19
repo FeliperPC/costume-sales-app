@@ -81,6 +81,14 @@ export const SUIT_VERSIONS_MENU_QUERY = defineQuery(`
   }
 `)
 
+export const REOPEN_SCHEDULE_DATE = defineQuery(`
+  *[_type == "schedule"][0]{
+    isOpen,
+    reopenDate
+  }
+`);
+
+
 
 
 

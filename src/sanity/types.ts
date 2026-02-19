@@ -20,10 +20,7 @@ export type Schedule = {
   _updatedAt: string;
   _rev: string;
   isOpen?: boolean;
-  availabilityRange?: {
-    from?: string;
-    to?: string;
-  };
+  reopenDate?: string;
 };
 
 export type Review = {
@@ -349,9 +346,17 @@ export type SUIT_BY_SLUG_QUERY_RESULT = {
 // Query: *[_type == "suit" && slug.current == $slug][0].versions[]{    _key,    versionName,    "versionSlug": versionSlug.current  }
 export type SUIT_VERSIONS_MENU_QUERY_RESULT = Array<{
   _key: string;
-  versionName: string;
-  versionSlug: string;
-}>;
+  versionName: string | null;
+  versionSlug: string | null;
+}> | null;
+
+// Source: src/sanity/lib/queries.ts
+// Variable: REOPEN_SCHEDULE_DATE
+// Query: *[_type == "schedule"][0]{    isOpen,    reopenDate  }
+export type REOPEN_SCHEDULE_DATE_RESULT = {
+  isOpen: boolean | null;
+  reopenDate: string | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -362,5 +367,6 @@ declare module "@sanity/client" {
     '\n{\n  "products": *[\n    _type == "suit" &&\n    defined(slug.current) &&\n    defined(versions[0].images[0].asset)\n  ]\n  | order(_createdAt desc) {\n    _id,\n    name,\n    "slug": slug.current,\n    "versionSlug": versions[0].versionSlug.current,\n    "imageUrl": versions[0].images[0].asset->url\n  },\n  "total": count(*[_type == "suit"])\n}\n': SUITS_CARD_PAGINATED_QUERY_RESULT;
     '\n  *[_type == "suit" && slug.current == $slug][0]{\n    _id,\n    name,\n    "slug": slug.current,\n    "version": coalesce(\n      versions[versionSlug.current == $versionSlug][0],\n      versions[0]\n    ){\n      _key,\n      versionName,\n      "versionSlug": versionSlug.current,\n      price,\n      fullDescription,\n      images[]{\n        asset->{\n          _id,\n          url\n        }\n      }\n    }\n  }\n': SUIT_BY_SLUG_QUERY_RESULT;
     '\n  *[_type == "suit" && slug.current == $slug][0].versions[]{\n    _key,\n    versionName,\n    "versionSlug": versionSlug.current\n  }\n': SUIT_VERSIONS_MENU_QUERY_RESULT;
+    '\n  *[_type == "schedule"][0]{\n    isOpen,\n    reopenDate\n  }\n': REOPEN_SCHEDULE_DATE_RESULT;
   }
 }

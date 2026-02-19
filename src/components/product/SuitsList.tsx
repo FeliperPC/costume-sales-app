@@ -3,9 +3,9 @@
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { ProductCard } from "./ProductCard";
 import Link from "next/link";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import { useMemo, useState } from "react";
-import { EmptyState } from "./EmptyState";
+import { EmptyState } from "../EmptyState";
 
 export default function SuitsList({
   products,

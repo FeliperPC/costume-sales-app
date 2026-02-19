@@ -19,14 +19,17 @@ import {
 } from "@/sanity/types";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
+import FAQSection from "./FAQSection";
 
 export default function SuitDetails({
   product,
   versions,
+  reopenScheduleDate,
 }: {
   product: SUIT_BY_SLUG_QUERY_RESULT;
   versions: SUIT_VERSIONS_MENU_QUERY_RESULT;
+  reopenScheduleDate?: string | null;
 }) {
   const searchParams = useSearchParams();
   const version = searchParams.get("v");
@@ -38,11 +41,16 @@ export default function SuitDetails({
     version,
   );
 
-  const [currentImage,setCurrentImage] = useState(product.version.images[0].asset.url)
-
+  const [currentImage, setCurrentImage] = useState(
+    product.version.images[0].asset.url,
+  );
+  let formatedDate = "";
+  if (reopenScheduleDate) {
+    formatedDate = formatDate(reopenScheduleDate);
+  }
   useEffect(() => {
     setSelectedVersion(version);
-    setCurrentImage(product.version.images[0].asset.url)
+    setCurrentImage(product.version.images[0].asset.url);
   }, [version]);
 
   function handleChangeVersion(versionName: string) {
@@ -91,7 +99,8 @@ export default function SuitDetails({
                 <Card
                   key={i}
                   className="p-0 overflow-hidden border-zinc-800 bg-zinc-900 cursor-pointer opacity-70 hover:opacity-100 transition"
-                  onClick={()=>setCurrentImage(img.asset.url)}>
+                  onClick={() => setCurrentImage(img.asset.url)}
+                >
                   <CardContent className="aspect-square relative">
                     <Image
                       src={img.asset.url || ""}
@@ -111,17 +120,25 @@ export default function SuitDetails({
               {product.name} - {product.version.versionName}
             </h1>
 
-            <div className="flex lg:flex-col gap-4 mb-8">
+            <div className="flex flex-col gap-4 mb-8">
               <div className="text-3xl text-purple-400 font-bold">
                 R$ {product.version.price}
               </div>
-
-              <Badge
-                variant="outline"
-                className="w-fit bg-green-500/10 text-green-500 border-green-500/30 uppercase font-bold tracking-widest"
-              >
-                Disponível para Encomenda
-              </Badge>
+              {formatedDate.length ? (
+                <Badge
+                  variant="outline"
+                  className="w-fit bg-yellow-500/10 text-yellow-500 border-yellow-500/30 uppercase font-bold"
+                >
+                  Agenda fechada para encomendas até {formatedDate}
+                </Badge>
+              ) : (
+                <Badge
+                  variant="outline"
+                  className="w-fit bg-green-500/10 text-green-500 border-green-500/30 uppercase font-bold"
+                >
+                  Disponível para Encomenda
+                </Badge>
+              )}
             </div>
 
             <p className="text-zinc-400 text-lg mb-8 leading-relaxed">
@@ -177,6 +194,7 @@ export default function SuitDetails({
                 </span>
               </div>
             </div>
+            <FAQSection />
           </div>
         </div>
       </div>

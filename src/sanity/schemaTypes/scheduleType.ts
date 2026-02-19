@@ -1,34 +1,36 @@
 import { defineField, defineType } from "sanity";
 
-
 // Singleton
 export const scheduleType = defineType({
   name: "schedule",
   title: "Disponibilidade de Agenda",
   type: "document",
   fields: [
-    // 1. O Interruptor (Switch)
+    // 1. Switch principal
     defineField({
       name: "isOpen",
       title: "Agenda Aberta?",
       type: "boolean",
       initialValue: true,
-      description: "Ativado: Exibe 'Disponível para encomenda'. Desativado: Mostra ao cliente a data prevista para o retorno da agenda.",
+      description:
+        "Ativado: Exibe 'Disponível para encomenda'. Desativado: Mostra ao cliente a data prevista de reabertura.",
     }),
-    // 2. O Range de Datas (Só aparece se isOpen for FALSE)
+
+    // 2. Data única de reabertura
     defineField({
-      name: "availabilityRange",
-      title: "Período de Disponibilidade",
-      type: "object",
-      // A mágica acontece aqui:
-      hidden: ({ document }) => document?.isOpen === true, 
-      fields: [
-        { name: "from", title: "De", type: "date" },
-        { name: "to", title: "Até", type: "date" },
-      ],
-      options: {
-        columns: 2, // Deixa os campos lado a lado
-      },
+      name: "reopenDate",
+      title: "Data de Reabertura",
+      type: "date",
+      hidden: ({ document }) => document?.isOpen === true,
+      description:
+        "Informe a data prevista para reabertura da agenda.",
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          if (context.document?.isOpen === false && !value) {
+            return "Você precisa informar a data de reabertura quando a agenda estiver fechada.";
+          }
+          return true;
+        }),
     }),
   ],
 });
