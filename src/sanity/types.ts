@@ -91,6 +91,7 @@ export type Suit = {
   slug?: Slug;
   versions?: Array<{
     versionName?: string;
+    versionSlug?: Slug;
     price?: number;
     fullDescription?: Array<{
       children?: Array<{
@@ -250,19 +251,13 @@ export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: src/sanity/lib/queries.ts
 // Variable: SUITS_CARD_QUERY
-// Query: *[_type == "suit" && defined(slug.current)]  | order(_createdAt desc) {    _id,    _createdAt,    name,    slug,    versions[0]{      images[0]{        asset->{          url        }      }    }  }
+// Query: *[    _type == "suit" &&    defined(slug.current) &&    defined(versions[0].images[0].asset)  ]  | order(_createdAt desc) {    _id,    name,    "slug": slug.current,    "versionSlug": versions[0].versionSlug.current,    "imageUrl": versions[0].images[0].asset->url  }
 export type SUITS_CARD_QUERY_RESULT = Array<{
   _id: string;
-  _createdAt: string;
   name: string | null;
-  slug: Slug | null;
-  versions: {
-    images: {
-      asset: {
-        url: string | null;
-      } | null;
-    } | null;
-  } | null;
+  slug: string | null;
+  versionSlug: string | null;
+  imageUrl: string | null;
 }>;
 
 // Source: src/sanity/lib/queries.ts
@@ -298,87 +293,74 @@ export type REVIEWERS_QUERY_RESULT = Array<{
 
 // Source: src/sanity/lib/queries.ts
 // Variable: SUITS_CARD_PAGINATED_QUERY
-// Query: {  "products": *[_type == "suit"]     | order(publishedAt desc)     [$start...$end]{      _id,    _createdAt,    name,    slug,    versions[0]{      images[0]{        asset->{          url        }      }    }  },  "total": count(*[_type == "suit"])}
+// Query: {  "products": *[    _type == "suit" &&    defined(slug.current) &&    defined(versions[0].images[0].asset)  ]  | order(_createdAt desc) {    _id,    name,    "slug": slug.current,    "versionSlug": versions[0].versionSlug.current,    "imageUrl": versions[0].images[0].asset->url  },  "total": count(*[_type == "suit"])}
 export type SUITS_CARD_PAGINATED_QUERY_RESULT = {
   products: Array<{
     _id: string;
-    _createdAt: string;
     name: string | null;
-    slug: Slug | null;
-    versions: {
-      images: {
-        asset: {
-          url: string | null;
-        } | null;
-      } | null;
-    } | null;
+    slug: string | null;
+    versionSlug: string | null;
+    imageUrl: string | null;
   }>;
   total: number;
 };
 
 // Source: src/sanity/lib/queries.ts
-// Variable: GET_SUIT_BY_SLUG_QUERY
-// Query: *[  _type == "suit" &&  slug.current == $slug][0]{  _id,  "name": coalesce(name, ""),  slug,  "versions": coalesce(versions, [])[]{    _key,    "versionName": coalesce(versionName, ""),    "price": coalesce(price, 0),    "fullDescription": coalesce(fullDescription, []),    "images": coalesce(images, [])[]{      _key,      "asset": asset->{        _id,        "url": coalesce(url, ""),        metadata {          dimensions        }      }    }  }}
-export type GET_SUIT_BY_SLUG_QUERY_RESULT = {
+// Variable: SUIT_BY_SLUG_QUERY
+// Query: *[_type == "suit" && slug.current == $slug][0]{    _id,    name,    "slug": slug.current,    "version": coalesce(      versions[versionSlug.current == $versionSlug][0],      versions[0]    ){      _key,      versionName,      "versionSlug": versionSlug.current,      price,      fullDescription,      images[]{        asset->{          _id,          url        }      }    }  }
+export type SUIT_BY_SLUG_QUERY_RESULT = {
   _id: string;
-  name: string | "";
-  slug: Slug | null;
-  versions:
-    | Array<{
+  name: string | null;
+  slug: string | null;
+  version: {
+    _key: string;
+    versionName: string | null;
+    versionSlug: string | null;
+    price: number | null;
+    fullDescription: Array<{
+      children: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
         _key: string;
-        versionName: string | "";
-        price: number | 0;
-        fullDescription:
-          | Array<{
-              children?: Array<{
-                marks?: Array<string>;
-                text?: string;
-                _type: "span";
-                _key: string;
-              }>;
-              style?:
-                | "blockquote"
-                | "h1"
-                | "h2"
-                | "h3"
-                | "h4"
-                | "h5"
-                | "h6"
-                | "normal";
-              listItem?: "bullet" | "number";
-              markDefs?: Array<{
-                href?: string;
-                _type: "link";
-                _key: string;
-              }>;
-              level?: number;
-              _type: "block";
-              _key: string;
-            }>
-          | Array<never>;
-        images:
-          | Array<{
-              _key: string;
-              asset: {
-                _id: string;
-                url: string | "";
-                metadata: {
-                  dimensions: SanityImageDimensions | null;
-                } | null;
-              } | null;
-            }>
-          | Array<never>;
-      }>
-    | Array<never>;
-} | null;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    images: Array<{
+      asset: {
+        _id: string;
+        url: string | null;
+      };
+    }>;
+  };
+};
+
+// Source: src/sanity/lib/queries.ts
+// Variable: SUIT_VERSIONS_MENU_QUERY
+// Query: *[_type == "suit" && slug.current == $slug][0].versions[]{    _key,    versionName,    "versionSlug": versionSlug.current  }
+export type SUIT_VERSIONS_MENU_QUERY_RESULT = Array<{
+  _key: string;
+  versionName: string;
+  versionSlug: string;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '\n  *[_type == "suit" && defined(slug.current)]\n  | order(_createdAt desc) {\n    _id,\n    _createdAt,\n    name,\n    slug,\n    versions[0]{\n      images[0]{\n        asset->{\n          url\n        }\n      }\n    }\n  }\n': SUITS_CARD_QUERY_RESULT;
+    '\n  *[\n    _type == "suit" &&\n    defined(slug.current) &&\n    defined(versions[0].images[0].asset)\n  ]\n  | order(_createdAt desc) {\n    _id,\n    name,\n    "slug": slug.current,\n    "versionSlug": versions[0].versionSlug.current,\n    "imageUrl": versions[0].images[0].asset->url\n  }\n': SUITS_CARD_QUERY_RESULT;
     '\n  *[_type == "review"]\n  | order(_createdAt desc)[0...3]{\n    _id,\n    name,\n    clientReview,\n    image{\n      asset->{\n        url\n      }\n    }\n  }\n': REVIEWERS_QUERY_RESULT;
-    '\n{\n  "products": *[_type == "suit"] \n    | order(publishedAt desc) \n    [$start...$end]{\n      _id,\n    _createdAt,\n    name,\n    slug,\n    versions[0]{\n      images[0]{\n        asset->{\n          url\n        }\n      }\n    }\n  },\n  "total": count(*[_type == "suit"])\n}\n': SUITS_CARD_PAGINATED_QUERY_RESULT;
-    '\n*[\n  _type == "suit" &&\n  slug.current == $slug\n][0]{\n  _id,\n  "name": coalesce(name, ""),\n  slug,\n\n  "versions": coalesce(versions, [])[]{\n    _key,\n    "versionName": coalesce(versionName, ""),\n    "price": coalesce(price, 0),\n    "fullDescription": coalesce(fullDescription, []),\n\n    "images": coalesce(images, [])[]{\n      _key,\n      "asset": asset->{\n        _id,\n        "url": coalesce(url, ""),\n        metadata {\n          dimensions\n        }\n      }\n    }\n  }\n}\n': GET_SUIT_BY_SLUG_QUERY_RESULT;
+    '\n{\n  "products": *[\n    _type == "suit" &&\n    defined(slug.current) &&\n    defined(versions[0].images[0].asset)\n  ]\n  | order(_createdAt desc) {\n    _id,\n    name,\n    "slug": slug.current,\n    "versionSlug": versions[0].versionSlug.current,\n    "imageUrl": versions[0].images[0].asset->url\n  },\n  "total": count(*[_type == "suit"])\n}\n': SUITS_CARD_PAGINATED_QUERY_RESULT;
+    '\n  *[_type == "suit" && slug.current == $slug][0]{\n    _id,\n    name,\n    "slug": slug.current,\n    "version": coalesce(\n      versions[versionSlug.current == $versionSlug][0],\n      versions[0]\n    ){\n      _key,\n      versionName,\n      "versionSlug": versionSlug.current,\n      price,\n      fullDescription,\n      images[]{\n        asset->{\n          _id,\n          url\n        }\n      }\n    }\n  }\n': SUIT_BY_SLUG_QUERY_RESULT;
+    '\n  *[_type == "suit" && slug.current == $slug][0].versions[]{\n    _key,\n    versionName,\n    "versionSlug": versionSlug.current\n  }\n': SUIT_VERSIONS_MENU_QUERY_RESULT;
   }
 }

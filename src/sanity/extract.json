@@ -510,6 +510,14 @@
                 },
                 "optional": true
               },
+              "versionSlug": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "inline",
+                  "name": "slug"
+                },
+                "optional": true
+              },
               "price": {
                 "type": "objectAttribute",
                 "value": {

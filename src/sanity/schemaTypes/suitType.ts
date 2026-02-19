@@ -10,6 +10,7 @@ export const suitType = defineType({
       title: 'Nome do produto',
       type: 'string',
       description: 'Ex: Homem Aranha',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -17,12 +18,14 @@ export const suitType = defineType({
       type: 'slug',
       options: { source: 'name' },
       description: 'homem-aranha',
+      validation: (Rule) => Rule.required(),
     }),
     // --- LISTA DE VERSÕES COM DADOS INDEPENDENTES ---
     defineField({
       name: 'versions',
       title: 'Versões Disponíveis',
       type: 'array',
+      validation: (Rule) => Rule.required(),
       of: [
         {
           type: 'object',
@@ -32,25 +35,37 @@ export const suitType = defineType({
               name: 'versionName', 
               title: 'Nome da Versão', 
               type: 'string', 
-              description: 'Ex: Tasm 2' 
+              description: 'Ex: Tasm 2',
+              validation: (Rule) => Rule.required(),
+            },
+            { 
+              name: 'versionSlug', 
+              title: 'URL (Slug da versão)', 
+              type: 'slug', 
+              options: { source: 'versionName' },
+              description: 'Ex: tasm-2',
+              validation: (Rule) => Rule.required(), 
             },
             { 
               name: 'price', 
               title: 'Preço desta Versão', 
-              type: 'number' 
+              type: 'number' ,
+              validation: (Rule) => Rule.required(),
             },
             { 
               name: 'fullDescription', 
               title: 'Descrição Completa da Versão', 
               type: 'array', 
               of: [{ type: 'block' }],
-              description: 'Detalhes específicos como composição do tecido, forro, etc.'
+              description: 'Detalhes específicos como composição do tecido, forro, etc.',
+              validation: (Rule) => Rule.required(),
             },
             { 
               name: 'images', 
               title: 'Galeria de Fotos', 
               type: 'array', 
-              of: [{ type: 'image', options: { hotspot: true } }] 
+              of: [{ type: 'image', options: { hotspot: true } }],
+              validation: (Rule) => Rule.required(), 
             },
           ],
           preview: {

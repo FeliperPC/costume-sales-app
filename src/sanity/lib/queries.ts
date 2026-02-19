@@ -1,21 +1,20 @@
 import { defineQuery } from "next-sanity";
 
 export const SUITS_CARD_QUERY = defineQuery(`
-  *[_type == "suit" && defined(slug.current)]
+  *[
+    _type == "suit" &&
+    defined(slug.current) &&
+    defined(versions[0].images[0].asset)
+  ]
   | order(_createdAt desc) {
     _id,
-    _createdAt,
     name,
-    slug,
-    versions[0]{
-      images[0]{
-        asset->{
-          url
-        }
-      }
-    }
+    "slug": slug.current,
+    "versionSlug": versions[0].versionSlug.current,
+    "imageUrl": versions[0].images[0].asset->url
   }
 `);
+
 
 export const REVIEWERS_QUERY = defineQuery(`
   *[_type == "review"]
@@ -33,52 +32,58 @@ export const REVIEWERS_QUERY = defineQuery(`
 
 export const SUITS_CARD_PAGINATED_QUERY = defineQuery(`
 {
-  "products": *[_type == "suit"] 
-    | order(publishedAt desc) 
-    [$start...$end]{
-      _id,
-    _createdAt,
+  "products": *[
+    _type == "suit" &&
+    defined(slug.current) &&
+    defined(versions[0].images[0].asset)
+  ]
+  | order(_createdAt desc) {
+    _id,
     name,
-    slug,
-    versions[0]{
-      images[0]{
-        asset->{
-          url
-        }
-      }
-    }
+    "slug": slug.current,
+    "versionSlug": versions[0].versionSlug.current,
+    "imageUrl": versions[0].images[0].asset->url
   },
   "total": count(*[_type == "suit"])
 }
 `);
 
-export const GET_SUIT_BY_SLUG_QUERY = defineQuery(`
-*[
-  _type == "suit" &&
-  slug.current == $slug
-][0]{
-  _id,
-  "name": coalesce(name, ""),
-  slug,
 
-  "versions": coalesce(versions, [])[]{
-    _key,
-    "versionName": coalesce(versionName, ""),
-    "price": coalesce(price, 0),
-    "fullDescription": coalesce(fullDescription, []),
-
-    "images": coalesce(images, [])[]{
+export const SUIT_BY_SLUG_QUERY = defineQuery(`
+  *[_type == "suit" && slug.current == $slug][0]{
+    _id,
+    name,
+    "slug": slug.current,
+    "version": coalesce(
+      versions[versionSlug.current == $versionSlug][0],
+      versions[0]
+    ){
       _key,
-      "asset": asset->{
-        _id,
-        "url": coalesce(url, ""),
-        metadata {
-          dimensions
+      versionName,
+      "versionSlug": versionSlug.current,
+      price,
+      fullDescription,
+      images[]{
+        asset->{
+          _id,
+          url
         }
       }
     }
   }
-}
 `)
+
+export const SUIT_VERSIONS_MENU_QUERY = defineQuery(`
+  *[_type == "suit" && slug.current == $slug][0].versions[]{
+    _key,
+    versionName,
+    "versionSlug": versionSlug.current
+  }
+`)
+
+
+
+
+
 
 

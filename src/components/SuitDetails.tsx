@@ -13,15 +13,50 @@ import {
   Camera,
 } from "lucide-react";
 import Link from "next/link";
-import { GET_SUIT_BY_SLUG_QUERY_RESULT } from "@/sanity/types";
+import {
+  SUIT_BY_SLUG_QUERY_RESULT,
+  SUIT_VERSIONS_MENU_QUERY_RESULT,
+} from "@/sanity/types";
+import { useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export default function SuitDetails({
-  data,
+  product,
+  versions,
 }: {
-  data: GET_SUIT_BY_SLUG_QUERY_RESULT;
+  product: SUIT_BY_SLUG_QUERY_RESULT;
+  versions: SUIT_VERSIONS_MENU_QUERY_RESULT;
 }) {
-  console.log(data);
-  
+  const searchParams = useSearchParams();
+  const version = searchParams.get("v");
+
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const [selectedVersion, setSelectedVersion] = useState<string | null>(
+    version,
+  );
+
+  const [currentImage,setCurrentImage] = useState(product.version.images[0].asset.url)
+
+  useEffect(() => {
+    setSelectedVersion(version);
+    setCurrentImage(product.version.images[0].asset.url)
+  }, [version]);
+
+  function handleChangeVersion(versionName: string) {
+    if (versionName == selectedVersion) {
+      return;
+    }
+    const params = new URLSearchParams(searchParams.toString());
+
+    params.set("v", versionName);
+
+    router.replace(`${pathname}?${params.toString()}`, {
+      scroll: false,
+    });
+  }
   return (
     <div className="pt-24 pb-20 bg-zinc-950 text-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
@@ -29,7 +64,7 @@ export default function SuitDetails({
         <Button
           asChild
           variant="ghost"
-          className="mb-8 text-zinc-400 hover:text-white"
+          className="mb-8 text-zinc-400 hover:bg-transparent hover:text-white"
         >
           <Link href={"/trajes"}>
             <ChevronLeft className="mr-2 h-4 w-4" />
@@ -40,11 +75,11 @@ export default function SuitDetails({
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Gallery */}
           <div className="space-y-4">
-            <Card className="overflow-hidden border-zinc-800 bg-zinc-900">
+            <Card className="p-0 overflow-hidden border-zinc-800 bg-zinc-900">
               <CardContent className="p-0 aspect-[4/5] relative">
                 <Image
-                  src={data?.versions[0].images[0].asset?.url || ""}
-                  alt={data?.name!!!}
+                  src={currentImage!!!}
+                  alt={product.name!!!}
                   fill
                   className="object-cover"
                 />
@@ -52,15 +87,15 @@ export default function SuitDetails({
             </Card>
 
             <div className="grid grid-cols-4 gap-4">
-              {data?.versions[0].images.slice(0, 4).map((img, i) => (
+              {product.version.images.slice(0, 4).map((img, i) => (
                 <Card
                   key={i}
-                  className="overflow-hidden border-zinc-800 bg-zinc-900 cursor-pointer opacity-70 hover:opacity-100 transition"
-                >
-                  <CardContent className="p-0 aspect-square relative">
+                  className="p-0 overflow-hidden border-zinc-800 bg-zinc-900 cursor-pointer opacity-70 hover:opacity-100 transition"
+                  onClick={()=>setCurrentImage(img.asset.url)}>
+                  <CardContent className="aspect-square relative">
                     <Image
-                      src={img.asset?.url || ""}
-                      alt={`${img.asset?.metadata}-${i}`}
+                      src={img.asset.url || ""}
+                      alt={`${img.asset._id}-${i}`}
                       fill
                       className="object-cover"
                     />
@@ -73,28 +108,28 @@ export default function SuitDetails({
           {/* Info */}
           <div className="flex flex-col">
             <h1 className="text-4xl lg:text-5xl font-black mb-4">
-              {data?.name}
+              {product.name} - {product.version.versionName}
             </h1>
 
-            <div className="flex flex-col gap-4 mb-8">
+            <div className="flex lg:flex-col gap-4 mb-8">
               <div className="text-3xl text-purple-400 font-bold">
-                {data?.versions[0].price}
+                R$ {product.version.price}
               </div>
 
               <Badge
                 variant="outline"
-                className="w-fit bg-green-500/10 text-green-500 border-green-500/30 uppercase tracking-widest"
+                className="w-fit bg-green-500/10 text-green-500 border-green-500/30 uppercase font-bold tracking-widest"
               >
                 Disponível para Encomenda
               </Badge>
             </div>
 
             <p className="text-zinc-400 text-lg mb-8 leading-relaxed">
-              {data?.versions[0].fullDescription[0].children[0].text || ""}
+              {product.version.fullDescription[0].children[0].text || ""}
             </p>
 
             {/* Variants */}
-            <Card className="bg-zinc-900 border-zinc-800 mb-8">
+            <Card className="bg-zinc-900 border-zinc-800 mb-8 p-0">
               <CardContent className="p-6">
                 <h3 className="font-bold mb-4 flex items-center gap-2 uppercase tracking-tight text-sm text-zinc-300">
                   <Info className="h-4 w-4" />
@@ -102,12 +137,16 @@ export default function SuitDetails({
                 </h3>
 
                 <div className="flex flex-wrap gap-2">
-                  {data?.versions.map((v) => (
+                  {versions.map((v) => (
                     <Button
                       key={v._key}
                       variant="secondary"
                       size="sm"
-                      className="hover:bg-purple-600 hover:text-white"
+                      className={cn(
+                        "bg-zinc-800 hover:bg-purple-600 rounded-lg text-sm font-medium transition-colors text-white",
+                        selectedVersion == v.versionSlug && "bg-purple-600",
+                      )}
+                      onClick={() => handleChangeVersion(v.versionSlug)}
                     >
                       {v.versionName}
                     </Button>
@@ -120,21 +159,21 @@ export default function SuitDetails({
             <div className="space-y-4">
               <Button
                 size="lg"
-                className="w-full bg-purple-600 hover:bg-purple-700 text-lg font-bold shadow-lg shadow-purple-900/20"
+                className="w-full bg-purple-600 hover:bg-purple-700 py-7 rounded-xl font-black text-xl flex items-center justify-center gap-3 transition-all shadow-xl shadow-purple-900/20"
               >
-                <ShoppingCart className="mr-3 h-5 w-5" />
+                <ShoppingCart className="mr-3 size-5 " />
                 FAZER ENCOMENDA
               </Button>
 
               <div className="flex items-center justify-center gap-6 text-xs text-zinc-500 uppercase font-bold tracking-widest">
                 <span className="flex items-center gap-1">
-                  <ShieldCheck size={14} /> Compra Segura
+                  <ShieldCheck size={14} /> Exclusivo
                 </span>
                 <span className="flex items-center gap-1">
                   <Ruler size={14} /> Sob Medida
                 </span>
                 <span className="flex items-center gap-1">
-                  <Camera size={14} /> Fotos Inclusas
+                  <Camera size={14} /> Fotos Reais
                 </span>
               </div>
             </div>
