@@ -2,8 +2,8 @@ import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { ShieldCheck, Instagram, Twitter, VenetianMaskIcon } from "lucide-react";
 import Logo from "./Logo";
+import { Instagram } from "lucide-react";
 
 export function Footer() {
   return (

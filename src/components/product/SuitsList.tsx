@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Input } from "../ui/input";
 import { useMemo, useState } from "react";
 import { EmptyState } from "../EmptyState";
+import { SUITS_CARD_PAGINATED_QUERY_RESULT } from "@/sanity/types";
 
 export default function SuitsList({
   products,
@@ -59,12 +60,12 @@ export default function SuitsList({
         </div>
 
         {/* Grid */}
-          {filteredSuits.length == 0 && 
+        {filteredSuits.length == 0 && (
           <div className="flex justify-center">
             <EmptyState searchTerm={searchQuery} />
           </div>
-            }
-            <div className="grid md:grid-cols-3 gap-8">
+        )}
+        <div className="grid md:grid-cols-3 gap-8">
           {filteredSuits.map((product: any) => (
             <ProductCard key={product._id} product={product} />
           ))}

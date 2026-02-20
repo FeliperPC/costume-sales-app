@@ -142,7 +142,7 @@ export default function SuitDetails({
             </div>
 
             <p className="text-zinc-400 text-lg mb-8 leading-relaxed">
-              {product.version.fullDescription[0].children[0].text || ""}
+              {product.version.fullDescription[0].children[0].text}
             </p>
 
             {/* Variants */}

@@ -279,12 +279,13 @@ export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: src/sanity/lib/queries.ts
 // Variable: SUITS_CARD_QUERY
 // Query: *[    _type == "suit" &&    defined(slug.current) &&    defined(versions[0].images[0].asset)  ]  | order(_createdAt desc) {    _id,    name,    "slug": slug.current,    "versionSlug": versions[0].versionSlug.current,    "imageUrl": versions[0].images[0].asset->url  }
+export type SUITS_CARD_QUERY_SINGLE_RESULT = SUITS_CARD_QUERY_RESULT[number]
 export type SUITS_CARD_QUERY_RESULT = Array<{
   _id: string;
-  name: string | null;
-  slug: string | null;
-  versionSlug: string | null;
-  imageUrl: string | null;
+  name: string;
+  slug: string;
+  versionSlug: string;
+  imageUrl: string;
 }>;
 
 // Source: src/sanity/lib/queries.ts
@@ -337,17 +338,17 @@ export type SUITS_CARD_PAGINATED_QUERY_RESULT = {
 // Query: *[_type == "suit" && slug.current == $slug][0]{    _id,    name,    "slug": slug.current,    "version": coalesce(      versions[versionSlug.current == $versionSlug][0],      versions[0]    ){      _key,      versionName,      "versionSlug": versionSlug.current,      price,      fullDescription,      images[]{        asset->{          _id,          url        }      }    }  }
 export type SUIT_BY_SLUG_QUERY_RESULT = {
   _id: string;
-  name: string | null;
-  slug: string | null;
+  name: string;
+  slug: string;
   version: {
     _key: string;
-    versionName: string | null;
-    versionSlug: string | null;
-    price: number | null;
+    versionName: string;
+    versionSlug: string;
+    price: number;
     fullDescription: Array<{
-      children?: Array<{
+      children: Array<{
         marks?: Array<string>;
-        text?: string;
+        text: string;
         _type: "span";
         _key: string;
       }>;
@@ -361,24 +362,24 @@ export type SUIT_BY_SLUG_QUERY_RESULT = {
       level?: number;
       _type: "block";
       _key: string;
-    }> | null;
+    }>;
     images: Array<{
       asset: {
         _id: string;
-        url: string | null;
-      } | null;
-    }> | null;
-  } | null;
-} | null;
+        url: string;
+      };
+    }>;
+  };
+};
 
 // Source: src/sanity/lib/queries.ts
 // Variable: SUIT_VERSIONS_MENU_QUERY
 // Query: *[_type == "suit" && slug.current == $slug][0].versions[]{    _key,    versionName,    "versionSlug": versionSlug.current  }
 export type SUIT_VERSIONS_MENU_QUERY_RESULT = Array<{
   _key: string;
-  versionName: string | null;
-  versionSlug: string | null;
-}> | null;
+  versionName: string;
+  versionSlug: string;
+}>;
 
 // Source: src/sanity/lib/queries.ts
 // Variable: REOPEN_SCHEDULE_DATE

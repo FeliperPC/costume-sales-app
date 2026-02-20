@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function WhatsAppButton() {

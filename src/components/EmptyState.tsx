@@ -1,7 +1,6 @@
 "use client"
 
 import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { SearchX } from "lucide-react"
 
 export function EmptyState({searchTerm}:{searchTerm:string}) {
@@ -27,7 +26,7 @@ export function EmptyState({searchTerm}:{searchTerm:string}) {
             <p className="text-sm text-zinc-400">
               Não encontramos resultados para{" "}
               <span className="text-purple-400 font-medium">
-                "{searchTerm}"
+                &quot;{searchTerm}&quot;
               </span>
             </p>
           )}

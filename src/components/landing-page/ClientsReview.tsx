@@ -51,7 +51,7 @@ export default async function Testimonials() {
                 </div>
 
                 <p className="text-gray-300 text-sm mb-4 leading-relaxed line-clamp-3">
-                  "{rev.clientReview?.[0]?.children?.[0]?.text ?? ""}"
+                  &quot;{rev.clientReview?.[0]?.children?.[0]?.text ?? ""}&quot;
                 </p>
 
                 <div className="pt-4 border-t border-zinc-800">

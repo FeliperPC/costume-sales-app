@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { sanityFetch } from "@/sanity/lib/live";
 import { ABOUT_QUERY } from "@/sanity/lib/queries";
 import * as Icons from "lucide-react";
+import { ReactNode } from "react";
 
 export default async function AboutUs() {
   const { data: aboutData } = await sanityFetch({ query: ABOUT_QUERY });
