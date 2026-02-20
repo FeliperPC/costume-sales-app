@@ -13,6 +13,51 @@
  */
 
 // Source: src/sanity/extract.json
+export type About = {
+  _id: string;
+  _type: "about";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  description?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  features?: Array<{
+    icon?: string;
+    title?: string;
+    description?: string;
+    _type: "feature";
+    _key: string;
+  }>;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
 export type Schedule = {
   _id: string;
   _type: "schedule";
@@ -60,22 +105,6 @@ export type Review = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
 };
 
 export type Suit = {
@@ -229,10 +258,11 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
-  | Schedule
-  | Review
+  | About
   | SanityImageCrop
   | SanityImageHotspot
+  | Schedule
+  | Review
   | Suit
   | Slug
   | SanityImagePaletteSwatch
@@ -315,7 +345,7 @@ export type SUIT_BY_SLUG_QUERY_RESULT = {
     versionSlug: string | null;
     price: number | null;
     fullDescription: Array<{
-      children: Array<{
+      children?: Array<{
         marks?: Array<string>;
         text?: string;
         _type: "span";
@@ -331,15 +361,15 @@ export type SUIT_BY_SLUG_QUERY_RESULT = {
       level?: number;
       _type: "block";
       _key: string;
-    }>;
+    }> | null;
     images: Array<{
       asset: {
         _id: string;
         url: string | null;
-      };
-    }>;
-  };
-};
+      } | null;
+    }> | null;
+  } | null;
+} | null;
 
 // Source: src/sanity/lib/queries.ts
 // Variable: SUIT_VERSIONS_MENU_QUERY
@@ -358,6 +388,27 @@ export type REOPEN_SCHEDULE_DATE_RESULT = {
   reopenDate: string | null;
 } | null;
 
+// Source: src/sanity/lib/queries.ts
+// Variable: ABOUT_QUERY
+// Query: *[_type == "about"][0]{    _id,    title,    description,    image{      asset->{        _id,        url      },      alt    },    features[]{      icon,      title,      description    }  }
+export type ABOUT_QUERY_RESULT = {
+  _id: string;
+  title: string ;
+  description: string ;
+  image: {
+    asset: {
+      _id: string;
+      url: string ;
+    } ;
+    alt:"";
+  } ;
+  features: Array<{
+    icon: string ;
+    title: string ;
+    description: string ;
+  }> ;
+} ;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -368,5 +419,6 @@ declare module "@sanity/client" {
     '\n  *[_type == "suit" && slug.current == $slug][0]{\n    _id,\n    name,\n    "slug": slug.current,\n    "version": coalesce(\n      versions[versionSlug.current == $versionSlug][0],\n      versions[0]\n    ){\n      _key,\n      versionName,\n      "versionSlug": versionSlug.current,\n      price,\n      fullDescription,\n      images[]{\n        asset->{\n          _id,\n          url\n        }\n      }\n    }\n  }\n': SUIT_BY_SLUG_QUERY_RESULT;
     '\n  *[_type == "suit" && slug.current == $slug][0].versions[]{\n    _key,\n    versionName,\n    "versionSlug": versionSlug.current\n  }\n': SUIT_VERSIONS_MENU_QUERY_RESULT;
     '\n  *[_type == "schedule"][0]{\n    isOpen,\n    reopenDate\n  }\n': REOPEN_SCHEDULE_DATE_RESULT;
+    '\n  *[_type == "about"][0]{\n    _id,\n    title,\n    description,\n    image{\n      asset->{\n        _id,\n        url\n      },\n      alt\n    },\n    features[]{\n      icon,\n      title,\n      description\n    }\n  }\n': ABOUT_QUERY_RESULT;
   }
 }

@@ -88,6 +88,26 @@ export const REOPEN_SCHEDULE_DATE = defineQuery(`
   }
 `);
 
+export const ABOUT_QUERY = defineQuery(`
+  *[_type == "about"][0]{
+    _id,
+    title,
+    description,
+    image{
+      asset->{
+        _id,
+        url
+      },
+      alt
+    },
+    features[]{
+      icon,
+      title,
+      description
+    }
+  }
+`)
+
 
 
 
