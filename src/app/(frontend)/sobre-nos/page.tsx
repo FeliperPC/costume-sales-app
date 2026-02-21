@@ -2,8 +2,10 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { sanityFetch } from "@/sanity/lib/live";
 import { ABOUT_QUERY } from "@/sanity/lib/queries";
+import IconInfo from "@/components/IconInfo";
 import * as Icons from "lucide-react";
 import { ReactNode } from "react";
+import BadgeComponent from "@/components/BadgeComponent";
 
 export default async function AboutUs() {
   const { data: aboutData } = await sanityFetch({ query: ABOUT_QUERY });
@@ -13,12 +15,7 @@ export default async function AboutUs() {
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
           {/* TEXTO */}
           <div className="order-2 md:order-1 space-y-6 sm:space-y-8">
-            <Badge
-              variant="outline"
-              className="uppercase tracking-widest text-[10px] sm:text-xs border-purple-500/40 text-purple-400"
-            >
-              Nossa História
-            </Badge>
+            <BadgeComponent value={aboutData.badge}/>
 
             <h1 className="uppercase text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-[1.05] tracking-tight">
               {aboutData.title}
@@ -31,34 +28,10 @@ export default async function AboutUs() {
             {/* FEATURES */}
             <div className="space-y-5 sm:space-y-6 md:space-y-8">
               {aboutData?.features?.map((feature, index) => {
-                const Icon = Icons[
-                  feature.icon as keyof typeof Icons
-                ] as React.ComponentType<any>;
-
-                return (
-                  <div key={feature.title ?? index}>
-                    <div className="flex gap-3 sm:gap-4 items-start">
-                      {/* Ícone */}
-                      <div className="p-2 sm:p-3 bg-purple-600/20 rounded-lg flex items-center justify-center border border-purple-500/20 shrink-0">
-                        {Icon && (
-                          <Icon className="text-purple-400 w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
-                        )}
-                      </div>
-
-                      {/* Texto */}
-                      <div>
-                        <h3 className="font-semibold text-white text-sm sm:text-base md:text-lg mb-1">
-                          {feature.title}
-                        </h3>
-
-                        <p className="text-zinc-400 text-xs sm:text-sm md:text-base leading-relaxed max-w-lg">
-                          {feature.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+                const IconComponent = Icons[feature.icon as keyof typeof Icons];
+              return(
+                  <IconInfo key={feature.title} title={feature.title} icon={IconComponent as any} description={feature.description} />
+              )})}
             </div>
           </div>
 

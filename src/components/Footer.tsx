@@ -48,10 +48,10 @@ export function Footer() {
           </p>
 
           <Link
-            href="mailto:contato@nexuscosplay.com"
+            href="mailto:spiderpinda@hotmail.com"
             className="text-purple-400 font-bold hover:underlinnpe"
           >
-            contato@nexuscosplay.com
+            spiderpinda@hotmail.com
           </Link>
         </Card>
       </div>

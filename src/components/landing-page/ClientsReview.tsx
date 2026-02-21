@@ -8,7 +8,7 @@ export default async function Testimonials() {
   const { data } = await sanityFetch({ query: REVIEWERS_QUERY });
 
   return (
-    <section className="py-24 bg-zinc-950">
+    <section className="py-24 bg-zinc-900/30 ">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">

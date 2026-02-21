@@ -1,4 +1,5 @@
 import ClientsReview from "@/components/landing-page/ClientsReview";
+import CustomSuit from "@/components/landing-page/CustomSuit";
 import FeaturedProducts from "@/components/landing-page/FeaturedProducts";
 import Hero from "@/components/landing-page/Hero";
 import StatsSection from "@/components/landing-page/StatsSection";
@@ -12,6 +13,7 @@ export default async function Home() {
         <FeaturedProducts />
       </Suspense>
       <StatsSection />
+      <CustomSuit />
       <Suspense fallback={<div>Loading clients review...</div>}>
         <ClientsReview />
       </Suspense>

@@ -91,6 +91,7 @@ export const REOPEN_SCHEDULE_DATE = defineQuery(`
 export const ABOUT_QUERY = defineQuery(`
   *[_type == "about"][0]{
     _id,
+    badge,
     title,
     description,
     image{
@@ -98,13 +99,28 @@ export const ABOUT_QUERY = defineQuery(`
         _id,
         url
       },
-      alt
     },
     features[]{
       icon,
       title,
       description
     }
+  }
+`)
+
+export const CUSTOM_SUIT_QUERY = defineQuery(`
+  *[_type == "customSuit"][0]{
+    _id,
+    badge,
+    title,
+    description,
+    image{
+      asset->{
+        _id,
+        url
+      },
+    },
+    callToAction
   }
 `)
 

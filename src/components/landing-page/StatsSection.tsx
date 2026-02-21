@@ -24,7 +24,7 @@ const stats = [
 
 export default function StatsSection() {
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-zinc-900/30 to-zinc-950">
+    <section className="py-16 md:py-24 bg-zinc-900/30 ">
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 max-w-4xl w-full mx-auto">
         {stats.map(({ hasBorder, value, label, icon }) => {
           const Icon = icon;

@@ -6,6 +6,12 @@ export const aboutType = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "badge",
+      title: "Palavra distintivo",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "title",
       title: "Título Principal",
       type: "string",

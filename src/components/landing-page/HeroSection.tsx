@@ -2,19 +2,24 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ChevronRight } from "lucide-react";
+import { Badge, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import heroBackground from "../../assets/heroBackground.avif";
 import { ScheduleBadge } from "./ScheduleBadge";
+import BadgeComponent from "../BadgeComponent";
 
-export default function HeroSection({reopenDate}:{reopenDate?:string | null}){
-  return(
+export default function HeroSection({
+  reopenDate,
+}: {
+  reopenDate?: string | null;
+}) {
+  return (
     <header className="relative h-[80vh] flex flex-col items-center justify-center overflow-hidden gap-20">
-      {reopenDate &&
+      {reopenDate && (
         <div className="px-8">
           <ScheduleBadge reopenDate={reopenDate} />
         </div>
-      }
+      )}
       <>
         {/* Background */}
         <div className="absolute inset-0 z-0">
@@ -31,34 +36,30 @@ export default function HeroSection({reopenDate}:{reopenDate?:string | null}){
         {/* Content */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 w-full">
           <div className="max-w-2xl">
-            <span className="inline-block px-3 py-1 bg-purple-500/20 border border-purple-500/50 rounded-full text-purple-400 text-xs font-bold uppercase tracking-widest mb-6">
-              Elite Cosmaker
-            </span>
-
+            <BadgeComponent value="Elite Cosmaker" />
             <h1 className="text-5xl md:text-8xl font-black mb-6 leading-none">
               DÊ VIDA AO SEU <br />
               <span className="text-purple-500">PERSONAGEM</span>
             </h1>
 
             <p className="text-lg text-gray-400 mb-8 max-w-lg">
-              Somos especialistas em transformar fantasia em realidade. Armaduras,
-              trajes e acessórios produzidos com as medidas exatas do seu corpo.
+              Somos especialistas em transformar fantasia em realidade.
+              Armaduras, trajes e acessórios produzidos com as medidas exatas do
+              seu corpo.
             </p>
 
-            <div className="flex flex-wrap gap-4">
-              <Button
-                size="lg"
-                asChild
-                className="bg-purple-600 hover:bg-purple-700 font-bold px-8 py-6 rounded-xl"
-              >
-                <Link href={"/trajes"}>
-                  Ver Catálogo <ChevronRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-            </div>
+            <Button
+              size="lg"
+              asChild
+              className="uppercase font-black bg-purple-600 hover:bg-purple-700 p-4 rounded-xl"
+            >
+              <Link href={"/trajes"}>
+                Ver Catálogo <ChevronRight className="size-5" />
+              </Link>
+            </Button>
           </div>
         </div>
       </>
     </header>
-  )
+  );
 }
