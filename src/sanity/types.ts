@@ -382,9 +382,9 @@ export type SUIT_BY_SLUG_QUERY_RESULT = {
     versionSlug: string ;
     price: number ;
     fullDescription: Array<{
-      children?: Array<{
+      children: Array<{
         marks?: Array<string>;
-        text?: string;
+        text: string;
         _type: "span";
         _key: string;
       }>;
