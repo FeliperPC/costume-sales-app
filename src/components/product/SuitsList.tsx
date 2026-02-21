@@ -6,14 +6,14 @@ import Link from "next/link";
 import { Input } from "../ui/input";
 import { useMemo, useState } from "react";
 import { EmptyState } from "../EmptyState";
-import { SUITS_CARD_PAGINATED_QUERY_RESULT } from "@/sanity/types";
+import { SUITS_CARD_PRODUCT_PAGINATED_QUERY_RESULT } from "@/sanity/types";
 
 export default function SuitsList({
   products,
   currentPage,
   totalPages,
 }: {
-  products: any;
+  products: SUITS_CARD_PRODUCT_PAGINATED_QUERY_RESULT;
   currentPage: number;
   totalPages: number;
 }) {
@@ -21,7 +21,7 @@ export default function SuitsList({
 
   const filteredSuits = useMemo(() => {
     if (searchQuery.length > 0) {
-      return products.filter((product: any) =>
+      return products.filter((product) =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase()),
       );
     }
@@ -66,7 +66,7 @@ export default function SuitsList({
           </div>
         )}
         <div className="grid md:grid-cols-3 gap-8">
-          {filteredSuits.map((product: any) => (
+          {filteredSuits.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
         </div>

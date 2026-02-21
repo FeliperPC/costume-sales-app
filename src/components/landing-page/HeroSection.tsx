@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Badge, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import heroBackground from "../../assets/heroBackground.avif";
 import { ScheduleBadge } from "./ScheduleBadge";

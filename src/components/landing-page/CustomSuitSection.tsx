@@ -1,9 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import heroBackground from "../../assets/heroBackground.avif";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { Hammer } from "lucide-react";

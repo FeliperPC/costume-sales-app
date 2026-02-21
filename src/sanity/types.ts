@@ -305,6 +305,8 @@ export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: src/sanity/lib/queries.ts
 // Variable: SUITS_CARD_QUERY
 // Query: *[    _type == "suit" &&    defined(slug.current) &&    defined(versions[0].images[0].asset)  ]  | order(_createdAt desc) {    _id,    name,    "slug": slug.current,    "versionSlug": versions[0].versionSlug.current,    "imageUrl": versions[0].images[0].asset->url  }
+export type SUITS_CARD_QUERY_SINGLE_RESULT = SUITS_CARD_QUERY_RESULT[number]
+
 export type SUITS_CARD_QUERY_RESULT = Array<{
   _id: string;
   name: string ;
@@ -347,6 +349,15 @@ export type REVIEWERS_QUERY_RESULT = Array<{
 // Source: src/sanity/lib/queries.ts
 // Variable: SUITS_CARD_PAGINATED_QUERY
 // Query: {  "products": *[    _type == "suit" &&    defined(slug.current) &&    defined(versions[0].images[0].asset)  ]  | order(_createdAt desc) {    _id,    name,    "slug": slug.current,    "versionSlug": versions[0].versionSlug.current,    "imageUrl": versions[0].images[0].asset->url  },  "total": count(*[_type == "suit"])}
+
+export type SUITS_CARD_PRODUCT_PAGINATED_QUERY_RESULT =Array<{
+    _id: string;
+    name: string ;
+    slug: string ;
+    versionSlug: string ;
+    imageUrl: string ;
+}>;
+
 export type SUITS_CARD_PAGINATED_QUERY_RESULT = {
   products: Array<{
     _id: string;
@@ -415,6 +426,27 @@ export type REOPEN_SCHEDULE_DATE_RESULT = {
 } ;
 
 // Source: src/sanity/lib/queries.ts
+// Variable: ABOUT_QUERY
+// Query: *[_type == "about"][0]{    _id,    badge,    title,    description,    image{      asset->{        _id,        url      },    },    features[]{      icon,      title,      description    }  }
+export type ABOUT_QUERY_RESULT = {
+  _id: string;
+  badge: string ;
+  title: string ;
+  description: string ;
+  image: {
+    asset: {
+      _id: string;
+      url: string ;
+    } ;
+  } ;
+  features: Array<{
+    icon: string ;
+    title: string ;
+    description: string ;
+  }> ;
+} ;
+
+// Source: src/sanity/lib/queries.ts
 // Variable: CUSTOM_SUIT_QUERY
 // Query: *[_type == "customSuit"][0]{    _id,    badge,    title,    description,    image{      asset->{        _id,        url      },    },    callToAction  }
 export type CUSTOM_SUIT_QUERY_RESULT = {
@@ -441,6 +473,7 @@ declare module "@sanity/client" {
     '\n  *[_type == "suit" && slug.current == $slug][0]{\n    _id,\n    name,\n    "slug": slug.current,\n    "version": coalesce(\n      versions[versionSlug.current == $versionSlug][0],\n      versions[0]\n    ){\n      _key,\n      versionName,\n      "versionSlug": versionSlug.current,\n      price,\n      fullDescription,\n      images[]{\n        asset->{\n          _id,\n          url\n        }\n      }\n    }\n  }\n': SUIT_BY_SLUG_QUERY_RESULT;
     '\n  *[_type == "suit" && slug.current == $slug][0].versions[]{\n    _key,\n    versionName,\n    "versionSlug": versionSlug.current\n  }\n': SUIT_VERSIONS_MENU_QUERY_RESULT;
     '\n  *[_type == "schedule"][0]{\n    isOpen,\n    reopenDate\n  }\n': REOPEN_SCHEDULE_DATE_RESULT;
+    '\n  *[_type == "about"][0]{\n    _id,\n    badge,\n    title,\n    description,\n    image{\n      asset->{\n        _id,\n        url\n      },\n    },\n    features[]{\n      icon,\n      title,\n      description\n    }\n  }\n': ABOUT_QUERY_RESULT;
     '\n  *[_type == "customSuit"][0]{\n    _id,\n    badge,\n    title,\n    description,\n    image{\n      asset->{\n        _id,\n        url\n      },\n    },\n    callToAction\n  }\n': CUSTOM_SUIT_QUERY_RESULT;
   }
 }
