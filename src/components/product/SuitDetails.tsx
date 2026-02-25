@@ -175,11 +175,14 @@ export default function SuitDetails({
             {/* CTA */}
             <div className="space-y-4">
               <Button
+                asChild
                 size="lg"
                 className="w-full bg-purple-600 hover:bg-purple-700 py-7 rounded-xl font-black text-xl flex items-center justify-center gap-3 transition-all shadow-xl shadow-purple-900/20"
               >
-                <ShoppingCart className="mr-3 size-5 " />
-                FAZER ENCOMENDA
+                <Link href={`/pedido/${product.slug}/${selectedVersion}`}>
+                  <ShoppingCart className="mr-3 size-5 " />
+                  FAZER ENCOMENDA
+                </Link>
               </Button>
 
               <div className="flex items-center justify-center gap-6 text-xs text-zinc-500 uppercase font-bold tracking-widest">

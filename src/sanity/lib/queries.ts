@@ -15,7 +15,6 @@ export const SUITS_CARD_QUERY = defineQuery(`
   }
 `);
 
-
 export const REVIEWERS_QUERY = defineQuery(`
   *[_type == "review"]
   | order(_createdAt desc)[0...3]{
@@ -48,7 +47,6 @@ export const SUITS_CARD_PAGINATED_QUERY = defineQuery(`
 }
 `);
 
-
 export const SUIT_BY_SLUG_QUERY = defineQuery(`
   *[_type == "suit" && slug.current == $slug][0]{
     _id,
@@ -71,7 +69,7 @@ export const SUIT_BY_SLUG_QUERY = defineQuery(`
       }
     }
   }
-`)
+`);
 
 export const SUIT_VERSIONS_MENU_QUERY = defineQuery(`
   *[_type == "suit" && slug.current == $slug][0].versions[]{
@@ -79,7 +77,7 @@ export const SUIT_VERSIONS_MENU_QUERY = defineQuery(`
     versionName,
     "versionSlug": versionSlug.current
   }
-`)
+`);
 
 export const REOPEN_SCHEDULE_DATE = defineQuery(`
   *[_type == "schedule"][0]{
@@ -106,7 +104,7 @@ export const ABOUT_QUERY = defineQuery(`
       description
     }
   }
-`)
+`);
 
 export const CUSTOM_SUIT_QUERY = defineQuery(`
   *[_type == "customSuit"][0]{
@@ -122,12 +120,15 @@ export const CUSTOM_SUIT_QUERY = defineQuery(`
     },
     callToAction
   }
-`)
+`);
 
-
-
-
-
-
-
-
+export const PRODUCT_ORDERING = defineQuery(`
+  *[_type == "suit" && slug.current == $product][0]{
+    _id,
+    name,
+    "version": versions[versionSlug.current == $version][0]{
+      versionName,
+      "imageUrl": images[0].asset->url
+    }
+  }
+`);

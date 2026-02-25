@@ -463,6 +463,13 @@ export type CUSTOM_SUIT_QUERY_RESULT = {
   callToAction: string ;
 } ;
 
+export type PRODUCT_ORDER = {
+  id: string;
+  name: string ;
+  version :string;
+  img:string
+}
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {

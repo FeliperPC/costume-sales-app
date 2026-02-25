@@ -36,7 +36,7 @@ export function CustomSuitSection({
             asChild
             className="uppercase mt-20 w-full lg:w-auto bg-purple-600 hover:bg-purple-700 py-7 rounded-xl font-black text-xl flex items-center justify-center gap-3 transition-all shadow-xl shadow-purple-900/20"
           >
-            <Link href={"/trajes"}>
+            <Link href={"/pedido"}>
               <Hammer className="size-5" /> {callToAction}
             </Link>
           </Button>
