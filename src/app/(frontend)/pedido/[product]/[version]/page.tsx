@@ -21,7 +21,5 @@ export default async function ProductOrder({
     version :orderingData.version.versionName,
     img:orderingData.version.imageUrl
   }
-
-  console.log(productOrder);
   return <OrderForm productOrder={productOrder}/>
 }
