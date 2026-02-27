@@ -470,6 +470,13 @@ export type PRODUCT_ORDER = {
   img:string
 }
 
+export type FormState = {
+  success: boolean;
+  errors?: Record<string, string[]>;
+  message: string;
+};
+
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {

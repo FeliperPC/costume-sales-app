@@ -67,6 +67,7 @@ export const FormField = ({
         />
       ) : select ? (
         <Select
+          name={name}
           onValueChange={(value) =>
             onChange({
               target: { name, value },

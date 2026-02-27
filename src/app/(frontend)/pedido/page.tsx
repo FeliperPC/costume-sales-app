@@ -1,13 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useActionState, useState } from "react";
 import { Ruler } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { PRODUCT_ORDER } from "@/sanity/types";
+import { FormState, PRODUCT_ORDER } from "@/sanity/types";
 import Image from "next/image";
 import { FormField } from "@/components/order/FormField";
+import { orderProductAction } from "@/lib/product/product-actions";
+
+// Before the server action run this is the inital state, that is the value of state in the hook declaration
+const initialState: FormState = {
+  success: false,
+  errors: undefined,
+  message: "",
+};
 
 export default function OrderForm({
   productOrder,
@@ -16,6 +24,11 @@ export default function OrderForm({
 }) {
   const [formData, setFormData] = useState({});
   const [images, setImages] = useState<{ file: File; preview: string }[]>([]);
+  const [state, formAction, isPending] = useActionState(
+    orderProductAction,
+    initialState,
+  );
+
   let step = 0;
 
   const nextStep = () => {
@@ -116,7 +129,7 @@ export default function OrderForm({
         </div>
       )}
       <div className="max-w-4xl mx-auto px-4 space-y-10">
-        <form className="space-y-8">
+        <form className="space-y-8" action={formAction}>
           {/* 1 - Informações */}
           <Card className="bg-zinc-900 border-zinc-800">
             {CardHeaderContent(nextStep(), "Informações Pessoais")}
@@ -355,6 +368,7 @@ export default function OrderForm({
                           multiple
                           onChange={handleImageChange}
                           className="hidden"
+                          name={"referenceImage-" + images.length}
                         />
                       </label>
                     )}
