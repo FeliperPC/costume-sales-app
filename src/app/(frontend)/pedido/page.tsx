@@ -27,7 +27,9 @@ export default function OrderForm({
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const handleImageChange = (e: any) => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+
     const files = Array.from(e.target.files);
 
     const remainingSlots = 5 - images.length;
@@ -35,7 +37,7 @@ export default function OrderForm({
 
     const newImages = filesToAdd.map((file) => ({
       file,
-      preview: URL.createObjectURL(file),
+      preview: URL.createObjectURL(file), // agora é File (extends Blob)
     }));
 
     setImages((prev) => [...prev, ...newImages]);
