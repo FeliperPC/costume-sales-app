@@ -368,7 +368,7 @@ export default function OrderForm({
                           multiple
                           onChange={handleImageChange}
                           className="hidden"
-                          name={"referenceImage-" + images.length}
+                          name={"referenceImages_"+images.length}
                         />
                       </label>
                     )}
