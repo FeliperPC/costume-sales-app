@@ -471,9 +471,9 @@ export type PRODUCT_ORDER = {
 }
 
 export type FormState = {
-  success: boolean;
+  success?: boolean;
   errors?: Record<string, string[]>;
-  message: string;
+  message?: string;
 };
 
 

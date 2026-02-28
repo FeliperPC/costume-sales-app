@@ -193,4 +193,17 @@ export const orderType = defineType({
       hidden: ({ document }) => !document?.referenceImages,
     }),
   ],
+  preview: {
+    select: {
+      title: "name",
+      createdAt: "_createdAt",
+      productName:"productName"
+    },
+    prepare({ title, createdAt, productName }) {
+      return {
+        title: `${title} • ${productName ?? "Personalizado"}`,
+        subtitle: `Criado em ${new Date(createdAt).toLocaleDateString("pt-BR")}`,
+      };
+    },
+  },
 });

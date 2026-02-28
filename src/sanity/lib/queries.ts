@@ -132,3 +132,12 @@ export const PRODUCT_ORDERING = defineQuery(`
     }
   }
 `);
+
+export const CHECK_ORDER = defineQuery(
+  `*[_type == "order" && _id == $id][0]{
+      _id,
+      name,
+      productName,
+      hero
+    }`,
+  )
