@@ -65,7 +65,22 @@ export const orderSchema = z.object({
   // ========================
   // ORDER DETAILS
   // ========================
-  deadline: z.string().optional(), // date vem como string do form
+  deadline: z
+  .string()
+  .optional()
+  .refine((value) => {
+    if (!value) return true; // continua opcional
+
+    const date = new Date(value);
+    if (isNaN(date.getTime())) return false;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return date > today;
+  }, {
+    message: "A data deve ser válida e maior que hoje",
+  }),
   notes: z.string().optional(),
 
   referenceImages: z

@@ -516,12 +516,12 @@ export type CUSTOM_SUIT_QUERY_RESULT = {
 // Query: *[_type == "suit" && slug.current == $product][0]{    _id,    name,    "version": versions[versionSlug.current == $version][0]{      versionName,      "imageUrl": images[0].asset->url    }  }
 export type PRODUCT_ORDERING_RESULT = {
   _id: string;
-  name: string | null;
+  name: string;
   version: {
-    versionName: string | null;
-    imageUrl: string | null;
-  } | null;
-} | null;
+    versionName: string;
+    imageUrl: string;
+  };
+};
 
 // Source: src/sanity/lib/queries.ts
 // Variable: CHECK_ORDER
