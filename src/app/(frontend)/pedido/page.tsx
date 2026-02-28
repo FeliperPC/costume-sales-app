@@ -77,6 +77,8 @@ export default function OrderForm({
     </CardHeader>
   );
 
+  const { errors } = state;
+
   return (
     <div className="pt-24 pb-20 bg-zinc-950 text-white min-h-screen space-y-10">
       <div className="text-center space-y-6">
@@ -160,7 +162,7 @@ export default function OrderForm({
                 placeholder="Seu nome"
                 required
                 id="name"
-                error={[]}
+                error={errors?.name??[]}
                 label="Nome Completo"
                 onChange={() => {}}
                 type="text"
