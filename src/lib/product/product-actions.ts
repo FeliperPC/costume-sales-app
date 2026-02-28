@@ -5,48 +5,88 @@ import { orderSchema } from "./product-validations";
 import { writeClient } from "@/sanity/lib/client";
 
 export const orderProductAction = async (
-  revState: FormState,
+  prevState: FormState,
   formData: FormData,
 ): Promise<FormState> => {
-  console.log('formData: '+formData);
-  
-  const rawData = Object.fromEntries(formData.entries()) as Record<string, unknown>;
-  console.log('rawDtat: '+rawData);
-
-  const validatedData = orderSchema.safeParse(rawData);
-
-  // console.log(validatedData);
-  
-  if (!validatedData.success) {
-    // this returns an object of arrays, the keys are the fields and the values are the errors messages ex : [{name:['name is required']}]
-    const errors = validatedData.error.flatten().fieldErrors;
-    return {
-      success: false,
-      errors: errors,
-      message: "Dados do formulário inválido",
-    };
-  }
-  return {
-  success: true,
-  message: "Encomenda criada com sucesso ! Entraremos em contato em breve.",
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+   return {
+    success: true,
+    message: "Encomenda criada com sucesso! Entraremos em contato em breve.",
   };
+  // const rawData = Object.fromEntries(formData.entries());
+  // let dataToValidate = rawData;
+  // if (!rawData.productName) {
+  //   const {
+  //     referenceImage_1,
+  //     referenceImage_2,
+  //     referenceImage_3,
+  //     referenceImage_4,
+  //     referenceImage_5,
+  //     ...rest
+  //   } = rawData as any;
+
+  //   dataToValidate = {
+  //     ...rest,
+  //     referenceImages: [
+  //       referenceImage_1,
+  //       referenceImage_2,
+  //       referenceImage_3,
+  //       referenceImage_4,
+  //       referenceImage_5,
+  //     ].filter((file: File) => file?.size > 0),
+  //   };
+  // }
+
+  // const validated = orderSchema.safeParse(dataToValidate);
+
+  // if (!validated.success) {
+  //   const errors = validated.error.flatten().fieldErrors;
+
+  //   return {
+  //     success: false,
+  //     errors,
+  //     message: "Dados do formulário inválido",
+  //   };
+  // }
+
   // try {
-  //   const parsed = orderSchema.parse(validatedData.data);
-  //   const sanityResponse = await writeClient.create({
+  //   if (!rawData.productName) {
+  //     const uploadedImages = await Promise.all(
+  //       validated.data.referenceImages?.map(async (file: File) => {
+  //         const asset = await writeClient.assets.upload("image", file);
+  //         return {
+  //           _key: crypto.randomUUID(),
+  //           _type: "image",
+  //           asset: {
+  //             _type: "reference",
+  //             _ref: asset._id,
+  //           },
+  //         };
+  //       }) ?? [],
+  //     );
+  //     await writeClient.create({
+  //       _type: "order",
+  //       ...validated.data,
+  //       referenceImages: uploadedImages,
+  //     });
+  //   }
+
+  //   await writeClient.create({
   //     _type: "order",
-  //     ...parsed,
+  //     ...validated.data,
   //   });
-  //   // console.log(sanityResponse);
   // } catch (error) {
   //   console.log(error);
+
   //   return {
   //     success: false,
   //     errors: { error: ["Erro ao enviar"] },
   //     message: "Falha ao fazer encomenda",
   //   };
   // }
+
   // return {
   //   success: true,
-  //   message: "Encomenda criada com sucesso ! Entraremos em contato em breve.",
+  //   message: "Encomenda criada com sucesso! Entraremos em contato em breve.",
   // };
 };

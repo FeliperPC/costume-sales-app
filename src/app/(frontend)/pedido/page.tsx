@@ -9,6 +9,7 @@ import { FormState, PRODUCT_ORDER } from "@/sanity/types";
 import Image from "next/image";
 import { FormField } from "@/components/order/FormField";
 import { orderProductAction } from "@/lib/product/product-actions";
+import { cn } from "@/lib/utils";
 
 // Before the server action run this is the inital state, that is the value of state in the hook declaration
 const initialState: FormState = {
@@ -50,7 +51,7 @@ export default function OrderForm({
 
     const newImages = filesToAdd.map((file) => ({
       file,
-      preview: URL.createObjectURL(file), // agora é File (extends Blob)
+      preview: URL.createObjectURL(file),
     }));
 
     setImages((prev) => [...prev, ...newImages]);
@@ -130,6 +131,25 @@ export default function OrderForm({
       )}
       <div className="max-w-4xl mx-auto px-4 space-y-10">
         <form className="space-y-8" action={formAction}>
+          {/* Hidden inputs to send value */}
+          {productOrder && (
+            <>
+              <input
+                onChange={() => {}}
+                hidden
+                type="text"
+                value={productOrder.name}
+                name="productName"
+              />
+              <input
+                onChange={() => {}}
+                hidden
+                type="text"
+                value={productOrder.version}
+                name="productVersion"
+              />
+            </>
+          )}
           {/* 1 - Informações */}
           <Card className="bg-zinc-900 border-zinc-800">
             {CardHeaderContent(nextStep(), "Informações Pessoais")}
@@ -358,20 +378,26 @@ export default function OrderForm({
                     ))}
 
                     {/* Botão + */}
-                    {images.length < 5 && (
-                      <label className="flex items-center justify-center w-full aspect-square bg-zinc-800 border border-dashed border-zinc-700 cursor-pointer hover:border-purple-500 rounded-lg">
-                        <span className="text-3xl text-zinc-400">+</span>
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <div
+                        key={index}
+                        className={cn(
+                          images.length != index ? "hidden" : "block",
+                        )}
+                      >
+                        <label className="flex items-center justify-center w-full aspect-square bg-zinc-800 border border-dashed border-zinc-700 cursor-pointer hover:border-purple-500 rounded-lg">
+                          <span className="text-3xl text-zinc-400">+</span>
 
-                        <input
-                          type="file"
-                          accept="image/*"
-                          multiple
-                          onChange={handleImageChange}
-                          className="hidden"
-                          name={"referenceImages_"+images.length}
-                        />
-                      </label>
-                    )}
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            className="hidden"
+                            name={"referenceImage_" + (index + 1)}
+                          />
+                        </label>
+                      </div>
+                    ))}
                   </div>
 
                   <p className="text-xs text-zinc-500">
@@ -396,7 +422,7 @@ export default function OrderForm({
               type="submit"
               className="flex-2 bg-purple-600 p-6 rounded-lg font-black text-lg hover:bg-purple-800"
             >
-              ENVIAR SOLICITAÇÃO
+              {isPending ? "ENCOMENDANDO ..." : "ENVIAR SOLICITAÇÃO"}
             </Button>
           </div>
         </form>

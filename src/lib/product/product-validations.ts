@@ -68,33 +68,13 @@ export const orderSchema = z.object({
   deadline: z.string().optional(), // date vem como string do form
   notes: z.string().optional(),
 
-  referenceImage_1: z
-    .instanceof(File)
-    .refine((file) => file.size <= 5_000_000, "Máx 5MB")
-    .refine((file) => file.type.startsWith("image/"), "Apenas imagens")
-    .optional(),
-
-  referenceImage_2: z
-    .instanceof(File)
-    .refine((file) => file.size <= 5_000_000, "Máx 5MB")
-    .refine((file) => file.type.startsWith("image/"), "Apenas imagens")
-    .optional(),
-
-  referenceImage_3: z
-    .instanceof(File)
-    .refine((file) => file.size <= 5_000_000, "Máx 5MB")
-    .refine((file) => file.type.startsWith("image/"), "Apenas imagens")
-    .optional(),
-
-  referenceImage_4: z
-    .instanceof(File)
-    .refine((file) => file.size <= 5_000_000, "Máx 5MB")
-    .refine((file) => file.type.startsWith("image/"), "Apenas imagens")
-    .optional(),
-
-  referenceImage_5: z
-    .instanceof(File)
-    .refine((file) => file.size <= 5_000_000, "Máx 5MB")
-    .refine((file) => file.type.startsWith("image/"), "Apenas imagens")
+  referenceImages: z
+    .array(
+      z
+        .instanceof(File)
+        .refine((file) => file.size <= 5_000_000, "Máx 5MB")
+        .refine((file) => file.type.startsWith("image/"), "Apenas imagens"),
+    )
+    .max(5)
     .optional(),
 });
