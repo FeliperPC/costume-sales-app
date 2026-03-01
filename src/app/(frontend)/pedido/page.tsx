@@ -78,12 +78,12 @@ export default function OrderForm({
     </CardHeader>
   );
 
-  const { errors } = state;
+  const { errors, success } = state;
 
   useEffect(() => {
     if (!state) return;
 
-    if (!state.success) {
+    if (!success && errors) {
       toast.custom((t) => (
         <div
           className="
