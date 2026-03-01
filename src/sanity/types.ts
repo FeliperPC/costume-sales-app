@@ -356,10 +356,10 @@ export declare const internalGroqTypeReferenceTo: unique symbol;
 // Query: *[    _type == "suit" &&    defined(slug.current) &&    defined(versions[0].images[0].asset)  ]  | order(_createdAt desc) {    _id,    name,    "slug": slug.current,    "versionSlug": versions[0].versionSlug.current,    "imageUrl": versions[0].images[0].asset->url  }
 export type SUITS_CARD_QUERY_RESULT = Array<{
   _id: string;
-  name: string | null;
-  slug: string | null;
-  versionSlug: string | null;
-  imageUrl: string | null;
+  name: string;
+  slug: string;
+  versionSlug: string;
+  imageUrl: string;
 }>;
 
 // Source: src/sanity/lib/queries.ts
@@ -399,10 +399,10 @@ export type REVIEWERS_QUERY_RESULT = Array<{
 export type SUITS_CARD_PAGINATED_QUERY_RESULT = {
   products: Array<{
     _id: string;
-    name: string | null;
-    slug: string | null;
-    versionSlug: string | null;
-    imageUrl: string | null;
+    name: string;
+    slug: string;
+    versionSlug: string;
+    imageUrl: string;
   }>;
   total: number;
 };
@@ -461,9 +461,9 @@ export type SUIT_BY_SLUG_QUERY_RESULT = {
 // Query: *[_type == "suit" && slug.current == $slug][0].versions[]{    _key,    versionName,    "versionSlug": versionSlug.current  }
 export type SUIT_VERSIONS_MENU_QUERY_RESULT = Array<{
   _key: string;
-  versionName: string | null;
-  versionSlug: string | null;
-}> | null;
+  versionName: string;
+  versionSlug: string;
+}>;
 
 // Source: src/sanity/lib/queries.ts
 // Variable: REOPEN_SCHEDULE_DATE
@@ -478,38 +478,38 @@ export type REOPEN_SCHEDULE_DATE_RESULT = {
 // Query: *[_type == "about"][0]{    _id,    badge,    title,    description,    image{      asset->{        _id,        url      },    },    features[]{      icon,      title,      description    }  }
 export type ABOUT_QUERY_RESULT = {
   _id: string;
-  badge: string | null;
+  badge: string;
   title: string | null;
-  description: string | null;
+  description: string;
   image: {
     asset: {
       _id: string;
-      url: string | null;
-    } | null;
-  } | null;
+      url: string;
+    };
+  };
   features: Array<{
     icon: string | null;
-    title: string | null;
-    description: string | null;
+    title: string;
+    description: string;
   }> | null;
-} | null;
+};
 
 // Source: src/sanity/lib/queries.ts
 // Variable: CUSTOM_SUIT_QUERY
 // Query: *[_type == "customSuit"][0]{    _id,    badge,    title,    description,    image{      asset->{        _id,        url      },    },    callToAction  }
 export type CUSTOM_SUIT_QUERY_RESULT = {
   _id: string;
-  badge: string | null;
-  title: string | null;
-  description: string | null;
+  badge: string;
+  title: string;
+  description: string;
   image: {
     asset: {
       _id: string;
-      url: string | null;
-    } | null;
-  } | null;
-  callToAction: string | null;
-} | null;
+      url: string;
+    };
+  };
+  callToAction: string;
+};
 
 // Source: src/sanity/lib/queries.ts
 // Variable: PRODUCT_ORDERING
