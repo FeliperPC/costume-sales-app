@@ -90,6 +90,6 @@ export const orderSchema = z.object({
         .refine((file) => file.size <= 5_000_000, "Máx 5MB")
         .refine((file) => file.type.startsWith("image/"), "Apenas imagens"),
     )
-    .max(5)
+    .max(5, "Quantidade de imagens ultrapassado.")
     .optional(),
 });

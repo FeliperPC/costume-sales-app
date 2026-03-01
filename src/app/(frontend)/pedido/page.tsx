@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { Ruler } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -10,6 +10,7 @@ import Image from "next/image";
 import { FormField } from "@/components/order/FormField";
 import { orderProductAction } from "@/lib/product/product-actions";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 // Before the server action run this is the inital state, that is the value of state in the hook declaration
 const initialState: FormState = {
@@ -78,6 +79,37 @@ export default function OrderForm({
   );
 
   const { errors } = state;
+
+  useEffect(() => {
+    if (!state) return;
+
+    if (!state.success) {
+      toast.custom((t) => (
+        <div
+          className="
+      md:w-96
+      bg-zinc-900
+      border border-purple-500/50
+      shadow-lg
+      shadow-purple-500/10
+      text-white
+      rounded-xl
+      p-4
+    "
+        >
+          <div className="flex items-start gap-3">
+            <div className="w-2 h-2 mt-2 rounded-full bg-red-500" />
+
+            <div className="flex-1">
+              <p className="font-semibold text-sm">Erro ao enviar formulário</p>
+
+              <p className="text-xs text-zinc-400 mt-1">{state.message}</p>
+            </div>
+          </div>
+        </div>
+      ));
+    }
+  }, [state]);
 
   return (
     <div className="pt-24 pb-20 bg-zinc-950 text-white min-h-screen space-y-10">
@@ -162,7 +194,7 @@ export default function OrderForm({
                 placeholder="Seu nome"
                 required
                 id="name"
-                error={errors?.name??[]}
+                error={errors?.name ?? []}
                 label="Nome Completo"
                 onChange={() => {}}
                 type="text"
@@ -174,7 +206,7 @@ export default function OrderForm({
                 placeholder="exemplo@email.com"
                 required
                 id="email"
-                error={[]}
+                error={errors?.email ?? []}
                 label="Email"
                 onChange={handleChange}
               />
@@ -185,7 +217,7 @@ export default function OrderForm({
                 placeholder="(99) 99999-9999"
                 required
                 id="cellphone"
-                error={[]}
+                error={errors?.cellphone ?? []}
                 label="Telefone (WhatsApp)"
                 onChange={handleChange}
               />
@@ -196,6 +228,7 @@ export default function OrderForm({
                 label="Sexo"
                 name="gender"
                 onChange={() => {}}
+                error={errors?.gender ?? []}
               />
             </CardContent>
           </Card>
@@ -223,7 +256,7 @@ export default function OrderForm({
                 { label: "Pulso (Circunferência)", id: "wrist" },
               ].map((field) => (
                 <FormField
-                  error={[]}
+                  error={errors?.[field.id] ?? []}
                   key={field.id}
                   type="number"
                   name={field.id}
@@ -248,8 +281,8 @@ export default function OrderForm({
                   id="street"
                   label="Rua"
                   placeholder="Nome da rua"
+                  error={errors?.street ?? []}
                   required
-                  error={[]}
                   onChange={handleChange}
                   stretch={true}
                   type="text"
@@ -260,8 +293,8 @@ export default function OrderForm({
                   id="number"
                   label="Número"
                   placeholder="123"
+                  error={errors?.number ?? []}
                   required
-                  error={[]}
                   onChange={handleChange}
                   type="number"
                 />
@@ -271,7 +304,8 @@ export default function OrderForm({
                   id="complement"
                   label="Complemento"
                   placeholder="Apartamento, bloco..."
-                  error={[]}
+                  error={errors?.complement ?? []}
+                  
                   onChange={handleChange}
                   type="text"
                   required={false}
@@ -282,8 +316,8 @@ export default function OrderForm({
                   id="district"
                   label="Bairro"
                   placeholder="Seu bairro"
+                  error={errors?.district ?? []}
                   required
-                  error={[]}
                   onChange={handleChange}
                   type="text"
                 />
@@ -293,8 +327,8 @@ export default function OrderForm({
                   id="city"
                   label="Cidade"
                   placeholder="Sua cidade"
+                  error={errors?.city ?? []}
                   required
-                  error={[]}
                   onChange={handleChange}
                   type="text"
                 />
@@ -304,9 +338,9 @@ export default function OrderForm({
                   id="state"
                   label="Estado (UF)"
                   placeholder="Ex: MG"
-                  required
                   type="text"
-                  error={[]}
+                  error={errors?.state ?? []}
+                  required
                   onChange={handleChange}
                 />
 
@@ -315,8 +349,8 @@ export default function OrderForm({
                   id="zipCode"
                   label="CEP"
                   placeholder="00000-000"
+                  error={errors?.zipCode ?? []}
                   required
-                  error={[]}
                   type="number"
                   onChange={handleChange}
                 />
@@ -334,7 +368,7 @@ export default function OrderForm({
                 id="deadline"
                 label="Data desejada (Prazo)"
                 type="date"
-                error={[]}
+                error={errors?.deadline}
                 onChange={handleChange}
                 required={false}
               />
@@ -343,7 +377,7 @@ export default function OrderForm({
                 id="notes"
                 label="Notas adicionais"
                 placeholder="Descreva modificações ou detalhes específicos..."
-                error={[]}
+                error={errors?.notes}
                 onChange={handleChange}
                 textarea
                 required={false}

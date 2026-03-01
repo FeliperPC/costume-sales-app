@@ -60,7 +60,7 @@ export const orderProductAction = async (
           };
         }) ?? [],
       );
-      const {_id} = await writeClient.create({
+      const { _id } = await writeClient.create({
         _type: "order",
         ...validated.data,
         referenceImages: uploadedImages,
@@ -68,7 +68,7 @@ export const orderProductAction = async (
       redirect(`/pedido/sucesso?orderId=${_id}`);
     }
 
-    const {_id} = await writeClient.create({
+    const { _id } = await writeClient.create({
       _type: "order",
       ...validated.data,
     });
