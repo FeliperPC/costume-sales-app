@@ -174,6 +174,27 @@
         },
         "optional": true
       },
+      "neck": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "palm_circumference": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "hand_length": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
       "street": {
         "type": "objectAttribute",
         "value": {

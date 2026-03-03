@@ -6,7 +6,7 @@ export const orderType = defineType({
   type: "document",
   groups: [
     { name: "order", title: "Produto" },
-    { name: "customer", title: "Cliente", default:true },
+    { name: "customer", title: "Cliente", default: true },
     { name: "measurements", title: "Medidas" },
     { name: "address", title: "Endereço" },
     { name: "details", title: "Observações" },
@@ -98,15 +98,91 @@ export const orderType = defineType({
     // ========================
     // MEASUREMENTS
     // ========================
-    defineField({ name: "chest", title: "Tórax", type: "number", group: "measurements", validation: (Rule) => Rule.required() }),
-    defineField({ name: "waist", title: "Cintura", type: "number", group: "measurements", validation: (Rule) => Rule.required() }),
-    defineField({ name: "hip", title: "Quadril", type: "number", group: "measurements", validation: (Rule) => Rule.required() }),
-    defineField({ name: "thigh", title: "Coxa", type: "number", group: "measurements", validation: (Rule) => Rule.required() }),
-    defineField({ name: "knee", title: "Joelho", type: "number", group: "measurements", validation: (Rule) => Rule.required() }),
-    defineField({ name: "calf", title: "Panturrilha", type: "number", group: "measurements", validation: (Rule) => Rule.required() }),
-    defineField({ name: "biceps", title: "Bíceps", type: "number", group: "measurements", validation: (Rule) => Rule.required() }),
-    defineField({ name: "forearm", title: "Antebraço", type: "number", group: "measurements", validation: (Rule) => Rule.required() }),
-    defineField({ name: "wrist", title: "Pulso", type: "number", group: "measurements", validation: (Rule) => Rule.required() }),
+    defineField({
+      name: "chest",
+      title: "Tórax",
+      type: "number",
+      group: "measurements",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "waist",
+      title: "Cintura",
+      type: "number",
+      group: "measurements",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "hip",
+      title: "Quadril",
+      type: "number",
+      group: "measurements",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "thigh",
+      title: "Coxa",
+      type: "number",
+      group: "measurements",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "knee",
+      title: "Joelho",
+      type: "number",
+      group: "measurements",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "calf",
+      title: "Panturrilha",
+      type: "number",
+      group: "measurements",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "biceps",
+      title: "Bíceps",
+      type: "number",
+      group: "measurements",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "forearm",
+      title: "Antebraço",
+      type: "number",
+      group: "measurements",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "wrist",
+      title: "Pulso",
+      type: "number",
+      group: "measurements",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "neck",
+      title: "Pescoço (Circunferência)",
+      type: "number",
+      group: "measurements",
+      validation: (Rule) => Rule.required().min(0),
+    }),
+    defineField({
+      name: "palm_circumference",
+      title: "Palma da Mão (Circunferência)",
+      type: "number",
+      group: "measurements",
+      validation: (Rule) => Rule.required().min(0),
+    }),
+
+    defineField({
+      name: "hand_length",
+      title: "Comprimento da Mão",
+      type: "number",
+      group: "measurements",
+      validation: (Rule) => Rule.required().min(0),
+    }),
 
     // ========================
     // ADDRESS
@@ -197,7 +273,7 @@ export const orderType = defineType({
     select: {
       title: "name",
       createdAt: "_createdAt",
-      productName:"productName"
+      productName: "productName",
     },
     prepare({ title, createdAt, productName }) {
       return {

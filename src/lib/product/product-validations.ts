@@ -50,6 +50,9 @@ export const orderSchema = z.object({
   biceps: z.coerce.number().min(1, "Bíceps é obrigatório"),
   forearm: z.coerce.number().min(1, "Antebraço é obrigatório"),
   wrist: z.coerce.number().min(1, "Pulso é obrigatório"),
+  neck: z.coerce.number().min(1, "Pescoço é obrigatório"),
+  palm_circumference: z.coerce.number().min(1, "Circunferência da palma é obrigatória"),
+  hand_length: z.coerce.number().min(1, "Comprimento da mão é obrigatório"),
 
   // ========================
   // ADDRESS

@@ -254,6 +254,12 @@ export default function OrderForm({
                 { label: "Bíceps (Circunferência)", id: "biceps" },
                 { label: "Antebraço (Circunferência)", id: "forearm" },
                 { label: "Pulso (Circunferência)", id: "wrist" },
+                { label: "Pescoço (Circunferência)", id: "neck" },
+                {
+                  label: "Palma da Mão (Circunferência)",
+                  id: "palm_circumference",
+                },
+                { label: "Comprimento da Mão", id: "hand_length" },
               ].map((field) => (
                 <FormField
                   error={errors?.[field.id] ?? []}
@@ -305,7 +311,6 @@ export default function OrderForm({
                   label="Complemento"
                   placeholder="Apartamento, bloco..."
                   error={errors?.complement ?? []}
-                  
                   onChange={handleChange}
                   type="text"
                   required={false}
