@@ -1,5 +1,5 @@
 import SuitsList from "@/components/product/SuitsList";
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
 import { SUITS_CARD_PAGINATED_QUERY } from "@/sanity/lib/queries";
 
 export default async function SuitsPage({
@@ -13,9 +13,9 @@ export default async function SuitsPage({
   const start = (currentPage - 1) * ITEMS_PER_PAGE;
   const end = start + ITEMS_PER_PAGE;
 
-  const { products, total } = await client.fetch(SUITS_CARD_PAGINATED_QUERY, {
-    start,
-    end,
+  const { data: { products, total } } = await sanityFetch({
+    query: SUITS_CARD_PAGINATED_QUERY,
+    params: { start, end },
   });
   const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
 

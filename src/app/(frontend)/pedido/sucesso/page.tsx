@@ -6,8 +6,6 @@ import Link from "next/link";
 import { sanityFetch } from "@/sanity/lib/live";
 import { CHECK_ORDER } from "@/sanity/lib/queries";
 
-export const revalidate = 0;
-
 export const metadata = {
   robots: {
     index: false,

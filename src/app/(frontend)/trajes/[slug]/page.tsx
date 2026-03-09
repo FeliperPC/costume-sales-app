@@ -6,8 +6,6 @@ import {
   SUIT_VERSIONS_MENU_QUERY,
 } from "@/sanity/lib/queries";
 
-export const dynamic = "force-dynamic"
-
 export default async function ProductPage({
   params,
   searchParams,
