@@ -33,4 +33,18 @@ export const scheduleType = defineType({
         }),
     }),
   ],
+   preview: {
+    select: {
+      isOpen: "isOpen",
+      reopenDate: "reopenDate",
+    },
+    prepare({ isOpen, reopenDate }) {
+      return {
+        title: isOpen ? "Agenda Aberta" : "Agenda Fechada",
+        subtitle: isOpen
+          ? "Disponível para encomendas"
+          : `Reabre em: ${reopenDate}`,
+      };
+    },
+  },
 });

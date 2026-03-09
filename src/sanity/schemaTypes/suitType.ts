@@ -72,7 +72,7 @@ export const suitType = defineType({
             select: {
               title: 'versionName',
               subtitle: 'price',
-              media: 'images.0'
+              media: 'images.0.asset'
             },
             prepare({ title, subtitle, media }) {
               return {
@@ -86,4 +86,18 @@ export const suitType = defineType({
       ]
     }),
   ],
+  preview: {
+    select: {
+      title: 'name',
+      subtitle: 'versions.0.versionName',
+      media: 'versions.0.images.0.asset'
+    },
+    prepare({ title, subtitle, media }) {
+      return {
+        title,
+        subtitle: subtitle ?? 'Sem versão',
+        media,
+      }
+    }
+  }
 })
