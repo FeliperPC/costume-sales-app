@@ -28,7 +28,7 @@ export default async function FeaturedProducts() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {data.map((product) => (
+          {data.slice(0,6).map((product) => (
             <ProductCard product={product} key={product._id} />
           ))}
         </div>
