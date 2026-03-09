@@ -1,4 +1,4 @@
-import sewingLogo from "../assets/sewingLogo.png";
+import sewingLogo from "../../public/sewingLogo.png";
 import Image from "next/image";
 
 export default function Logo() {
@@ -13,7 +13,11 @@ export default function Logo() {
       </div>
 
       <span className="text-2xl font-black bg-clip-text text-foreground">
-        PINDA<span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">.STUDIO</span><span className="ml-1">®</span>
+        PINDA
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">
+          .STUDIO
+        </span>
+        <span className="ml-1">®</span>
       </span>
     </>
   );
