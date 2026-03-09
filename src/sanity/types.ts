@@ -13,6 +13,137 @@
  */
 
 // Source: src/sanity/extract.json
+
+// new
+export type SUITS_CARD_PRODUCT_PAGINATED_QUERY_RESULT =Array<{
+  _id: string;
+  name: string ;
+  slug: string ;
+  versionSlug: string ;
+  imageUrl: string ;
+}>;
+
+// new
+export type SUITS_CARD_QUERY_SINGLE_RESULT = SUITS_CARD_QUERY_RESULT[number]
+
+// new
+export type PRODUCT_ORDER = {
+id: string;
+name: string ;
+version :string;
+img:string
+}
+
+// new
+export type FormState = {
+success?: boolean;
+errors?: Record<string, string[]>;
+message?: string;
+};
+
+export type ABOUT_QUERY_RESULT = {
+  _id: string;
+  badge: string;
+  title: string | null;
+  description: string;
+  image: {
+    asset: {
+      _id: string;
+      url: string;
+    };
+  };
+  features: Array<{
+    icon: string | null;
+    title: string;
+    description: string;
+  }> | null;
+};
+
+export type SUIT_BY_SLUG_QUERY_RESULT = {
+  _id: string;
+  name: string ;
+  slug: string ;
+  version: {
+    _key: string;
+    versionName: string ;
+    versionSlug: string ;
+    price: number ;
+    fullDescription: Array<{
+      children: Array<{
+        marks?: Array<string>;
+        text: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }> ;
+    images: Array<{
+      asset: {
+        _id: string;
+        url: string ;
+      } ;
+    }> ;
+  } ;
+} ;
+
+export type PRODUCT_ORDERING_RESULT = {
+  _id: string;
+  name: string;
+  version: {
+    versionName: string;
+    imageUrl: string;
+  };
+};
+
+export type SUITS_CARD_PAGINATED_QUERY_RESULT = {
+  products: Array<{
+    _id: string;
+    name: string;
+    slug: string;
+    versionSlug: string;
+    imageUrl: string;
+  }>;
+  total: number;
+};
+
+export type CUSTOM_SUIT_QUERY_RESULT = {
+  _id: string;
+  badge: string;
+  title: string;
+  description: string;
+  image: {
+    asset: {
+      _id: string;
+      url: string;
+    };
+  };
+  callToAction: string;
+};
+
+export type SUITS_CARD_QUERY_RESULT = Array<{
+  _id: string;
+  name: string;
+  slug: string;
+  versionSlug: string;
+  imageUrl: string;
+}>;
+
+export type SUIT_VERSIONS_MENU_QUERY_RESULT = Array<{
+  _key: string;
+  versionName: string;
+  versionSlug: string;
+}>;
+
+
 export type Order = {
   _id: string;
   _type: "order";
@@ -394,93 +525,10 @@ export type REVIEWERS_QUERY_RESULT = Array<{
 // Variable: SUITS_CARD_PAGINATED_QUERY
 // Query: {  "products": *[    _type == "suit" &&    defined(slug.current) &&    defined(versions[0].images[0].asset)  ]  | order(_createdAt desc) {    _id,    name,    "slug": slug.current,    "versionSlug": versions[0].versionSlug.current,    "imageUrl": versions[0].images[0].asset->url  },  "total": count(*[_type == "suit"])}
 
-
 // Source: src/sanity/lib/queries.ts
 // Variable: SUIT_BY_SLUG_QUERY
 // Query: *[_type == "suit" && slug.current == $slug][0]{    _id,    name,    "slug": slug.current,    "version": coalesce(      versions[versionSlug.current == $versionSlug][0],      versions[0]    ){      _key,      versionName,      "versionSlug": versionSlug.current,      price,      fullDescription,      images[]{        asset->{          _id,          url        }      }    }  }
-export type SUIT_BY_SLUG_QUERY_RESULT = {
-  _id: string;
-  name: string ;
-  slug: string ;
-  version: {
-    _key: string;
-    versionName: string ;
-    versionSlug: string ;
-    price: number ;
-    fullDescription: Array<{
-      children: Array<{
-        marks?: Array<string>;
-        text: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }> ;
-    images: Array<{
-      asset: {
-        _id: string;
-        url: string ;
-      } ;
-    }> ;
-  } ;
-} ;
 
-export type PRODUCT_ORDERING_RESULT = {
-  _id: string;
-  name: string;
-  version: {
-    versionName: string;
-    imageUrl: string;
-  };
-};
-
-export type SUITS_CARD_PAGINATED_QUERY_RESULT = {
-  products: Array<{
-    _id: string;
-    name: string;
-    slug: string;
-    versionSlug: string;
-    imageUrl: string;
-  }>;
-  total: number;
-};
-
-export type CUSTOM_SUIT_QUERY_RESULT = {
-  _id: string;
-  badge: string;
-  title: string;
-  description: string;
-  image: {
-    asset: {
-      _id: string;
-      url: string;
-    };
-  };
-  callToAction: string;
-};
-
-export type SUITS_CARD_QUERY_RESULT = Array<{
-  _id: string;
-  name: string;
-  slug: string;
-  versionSlug: string;
-  imageUrl: string;
-}>;
-
-export type SUIT_VERSIONS_MENU_QUERY_RESULT = Array<{
-  _key: string;
-  versionName: string;
-  versionSlug: string;
-}>;
 
 // Source: src/sanity/lib/queries.ts
 // Variable: SUIT_VERSIONS_MENU_QUERY
@@ -498,23 +546,6 @@ export type REOPEN_SCHEDULE_DATE_RESULT = {
 // Source: src/sanity/lib/queries.ts
 // Variable: ABOUT_QUERY
 // Query: *[_type == "about"][0]{    _id,    badge,    title,    description,    image{      asset->{        _id,        url      },    },    features[]{      icon,      title,      description    }  }
-export type ABOUT_QUERY_RESULT = {
-  _id: string;
-  badge: string;
-  title: string | null;
-  description: string;
-  image: {
-    asset: {
-      _id: string;
-      url: string;
-    };
-  };
-  features: Array<{
-    icon: string | null;
-    title: string;
-    description: string;
-  }> | null;
-};
 
 // Source: src/sanity/lib/queries.ts
 // Variable: CUSTOM_SUIT_QUERY
@@ -525,6 +556,7 @@ export type ABOUT_QUERY_RESULT = {
 // Variable: PRODUCT_ORDERING
 // Query: *[_type == "suit" && slug.current == $product][0]{    _id,    name,    "version": versions[versionSlug.current == $version][0]{      versionName,      "imageUrl": images[0].asset->url    }  }
 
+
 // Source: src/sanity/lib/queries.ts
 // Variable: CHECK_ORDER
 // Query: *[_type == "order" && _id == $id][0]{      _id,      name,      productName,      hero    }
@@ -534,32 +566,6 @@ export type CHECK_ORDER_RESULT = {
   productName: string | null;
   hero: null;
 } | null;
-
-export type SUITS_CARD_PRODUCT_PAGINATED_QUERY_RESULT =Array<{
-    _id: string;
-    name: string ;
-    slug: string ;
-    versionSlug: string ;
-    imageUrl: string ;
-}>;
-
-// new
-export type SUITS_CARD_QUERY_SINGLE_RESULT = SUITS_CARD_QUERY_RESULT[number]
-
-// new
-export type PRODUCT_ORDER = {
-  id: string;
-  name: string ;
-  version :string;
-  img:string
-}
-
-// new
-export type FormState = {
-  success?: boolean;
-  errors?: Record<string, string[]>;
-  message?: string;
-};
 
 // Query TypeMap
 import "@sanity/client";

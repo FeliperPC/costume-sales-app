@@ -68,7 +68,7 @@ export default async function SuccessPage({
             Código do pedido: {order._id}
           </div>
 
-          <Button asChild className="w-full rounded-xl">
+          <Button asChild variant="ghost">
             <Link href="/">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Voltar para a Loja

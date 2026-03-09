@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowLeftIcon } from "lucide-react";
+import { Home } from "lucide-react";
 import Link from "next/link";
 
 export default function AdminLayout({
@@ -8,16 +8,37 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="grid">
-      <div className="p-4 bg-background text-foreground border-b border-primary/30">
-        <Button asChild variant="ghost">
-          <Link href="/">
-            <ArrowLeftIcon className="size-4" />
-            Voltar para Home
-          </Link>
-        </Button>
-      </div>
-      {children}
+    <div className="min-h-screen flex flex-col">
+      {/* HEADER */}
+      <header className="border-b border-primary/30 bg-[#13141b]">
+        <div className="flex h-16 items-center px-6 justify-between">
+          <div className="flex items-center gap-6">
+            <span className="text-2xl font-black bg-clip-text text-foreground">
+              PINDA
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">
+                .STUDIO
+              </span>
+              <span className="ml-1">®</span>
+            </span>
+
+            <div className="h-6 w-px bg-border" />
+
+            <span className="text-sm font-medium text-muted-foreground">
+              Painel Administrativo
+            </span>
+          </div>
+
+          <Button asChild variant="ghost" size="sm">
+            <Link href="/" className="flex items-center gap-2">
+              <Home className="size-4" />
+              Voltar para o site
+            </Link>
+          </Button>
+        </div>
+      </header>
+
+      {/* CONTEÚDO */}
+      <main className="flex-1">{children}</main>
     </div>
   );
 }

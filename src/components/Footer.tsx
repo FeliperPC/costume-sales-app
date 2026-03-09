@@ -7,11 +7,11 @@ import { Instagram } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-background py-20 border-t border-border">
+    <footer className="bg-background py-20">
       <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-12">
         
         {/* Brand */}
-        <Card className="bg-transparent border-0 shadow-none p-0 md:col-span-2">
+        <Card className="bg-transparent p-1 border-none shadow-none md:col-span-2 ring-0">
           <div className="flex items-center gap-2 mb-6">
             <Logo />
           </div>
@@ -36,7 +36,7 @@ export function Footer() {
         </Card>
 
         {/* Oficina */}
-        <Card className="bg-transparent border-0 shadow-none p-0">
+        <Card className="bg-transparent border-0 shadow-none p-1 ring-0">
           <h4 className="font-bold text-foreground mb-6 uppercase tracking-widest text-sm">
             Oficina
           </h4>

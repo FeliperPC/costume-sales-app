@@ -31,12 +31,7 @@ export default function OrderForm({
     initialState,
   );
 
-  let step = 0;
-
-  const nextStep = () => {
-    step += 1;
-    return step;
-  };
+  const stepArray: number[] = productOrder ? [1, 2, 3, 4, 5] : [0,1, 2, 3, 4];
 
   const removeImage = (index: number) => {
     setImages((prev) => prev.filter((_, i) => i !== index));
@@ -84,7 +79,7 @@ export default function OrderForm({
     if (!state) return;
 
     if (!success && errors) {
-      toast.custom((t) => (
+      toast.custom(() => (
         <div
           className="
       md:w-96
@@ -109,7 +104,7 @@ export default function OrderForm({
         </div>
       ));
     }
-  }, [state]);
+  }, [state, success, errors]);
 
   return (
     <div className="pt-24 pb-20 bg-background text-foreground min-h-screen space-y-10">
@@ -130,7 +125,7 @@ export default function OrderForm({
       {productOrder && (
         <div className="max-w-4xl mx-auto px-4 space-y-10">
           <Card className="bg-card border-border">
-            {CardHeaderContent(nextStep(), "Revisão do produto")}
+            {CardHeaderContent(stepArray[0], "Revisão do produto")}
             <CardContent>
               <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
                 {/* IMAGEM */}
@@ -186,7 +181,7 @@ export default function OrderForm({
           )}
           {/* 1 - Informações */}
           <Card className="bg-card border-border">
-            {CardHeaderContent(nextStep(), "Informações Pessoais")}
+            {CardHeaderContent(stepArray[1], "Informações Pessoais")}
 
             <CardContent className="grid md:grid-cols-2 gap-6">
               <FormField
@@ -235,7 +230,7 @@ export default function OrderForm({
 
           {/* 2 - Medidas */}
           <Card className="bg-card border-border">
-            {CardHeaderContent(nextStep(), "Medidas Corporais (cm)")}
+            {CardHeaderContent(stepArray[2], "Medidas Corporais (cm)")}
 
             <CardContent className="grid grid-cols-2 md:grid-cols-3 gap-6">
               {[
@@ -278,7 +273,7 @@ export default function OrderForm({
 
           {/* 4 - Endereço */}
           <Card className="bg-card border-border">
-            {CardHeaderContent(nextStep(), "Endereço para Entrega")}
+            {CardHeaderContent(stepArray[3], "Endereço para Entrega")}
 
             <CardContent className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
@@ -365,7 +360,7 @@ export default function OrderForm({
 
           {/* 3 - Projeto */}
           <Card className="bg-card border-border">
-            {CardHeaderContent(nextStep(), "Observações do Projeto")}
+            {CardHeaderContent(stepArray[4], "Observações do Projeto")}
 
             <CardContent className="space-y-6">
               <FormField
@@ -454,7 +449,7 @@ export default function OrderForm({
             <Button
               type="button"
               variant="outline"
-              className="flex-1 bg-primary text-primary-foreground border-border p-6 rounded-lg font-bold"
+              className="flex-1 bg-foreground/10 text-primary-foreground border-border p-6 rounded-lg font-bold"
             >
               Cancelar
             </Button>
