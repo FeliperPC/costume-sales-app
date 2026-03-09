@@ -29,7 +29,7 @@ export default function SuitsList({
   }, [products, searchQuery]);
 
   return (
-    <div className="pt-32 pb-20 bg-zinc-950 text-white min-h-screen">
+    <div className="pt-32 pb-20 bg-background text-foreground min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
@@ -37,7 +37,7 @@ export default function SuitsList({
             <h1 className="text-4xl font-black mb-2 uppercase">
               Catálogo Completo
             </h1>
-            <p className="text-gray-400">
+            <p className="text-muted-foreground">
               Explore todas as nossas criações disponíveis para encomenda.
             </p>
           </div>
@@ -45,14 +45,14 @@ export default function SuitsList({
           <form className="relative w-full md:w-96">
             <Search
               size={18}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
             />
 
             <Input
               name="search"
               type="text"
               placeholder="Buscar trajes (ex: Capitão América)"
-              className="pl-10 bg-zinc-900 border-zinc-800 text-white placeholder:text-zinc-500 focus-visible:ring-purple-500/30"
+              className="pl-10 bg-card border-border text-foreground placeholder:text-muted-foreground focus-visible:ring-ring/30"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -76,20 +76,20 @@ export default function SuitsList({
           <div className="mt-16 flex justify-center items-center gap-4">
             <Link
               href={`?page=${currentPage - 1}`}
-              className={`p-3 bg-zinc-900 rounded-full border border-zinc-800 ${
+              className={`p-3 bg-card rounded-full border border-border ${
                 currentPage === 1 && "pointer-events-none opacity-30"
               }`}
             >
               <ChevronLeft size={20} />
             </Link>
 
-            <span className="font-bold text-gray-400">
+            <span className="font-bold text-muted-foreground">
               Página {currentPage} de {totalPages}
             </span>
 
             <Link
               href={`?page=${currentPage + 1}`}
-              className={`p-3 bg-zinc-900 rounded-full border border-zinc-800 ${
+              className={`p-3 bg-card rounded-full border border-border ${
                 currentPage === totalPages && "pointer-events-none opacity-30"
               }`}
             >

@@ -7,7 +7,7 @@ import { Suspense } from "react";
 
 export default async function Home() {
   return (
-    <div className="pt-20 bg-zinc-950 text-white min-h-screen">
+    <div className="pt-20 bg-background text-foreground min-h-screen">
       <Hero />
       <Suspense fallback={<div>Loading products review ...</div>}>
         <FeaturedProducts />

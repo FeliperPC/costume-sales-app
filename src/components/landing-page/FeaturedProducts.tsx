@@ -6,14 +6,14 @@ import { ProductCard } from "../product/ProductCard";
 export default async function FeaturedProducts() {
   const {data} = await sanityFetch({query:SUITS_CARD_QUERY})
   return (
-    <section className="py-24 bg-zinc-900/30">
+    <section className="py-24 bg-card/30">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-end mb-12">
           <div>
             <h2 className="text-4xl font-black mb-2">
               TRAJES DE ELITE
             </h2>
-            <p className="text-gray-400">
+            <p className="text-muted-foreground">
               Trabalhos recentes da nossa oficina.
             </p>
           </div>
@@ -21,7 +21,7 @@ export default async function FeaturedProducts() {
           {/* Botão Ver Tudo */}
           <Link
             href="/trajes"
-            className="hidden md:block text-purple-400 font-bold hover:underline"
+            className="hidden md:block text-primary font-bold hover:underline"
           >
             Ver tudo
           </Link>

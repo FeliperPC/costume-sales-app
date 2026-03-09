@@ -70,10 +70,10 @@ export default function OrderForm({
   const CardHeaderContent = (index: number, title: string) => (
     <CardHeader>
       <CardTitle className="flex items-center gap-3">
-        <span className="w-6 h-6 text-white bg-purple-600 rounded text-xs font-bold flex items-center justify-center">
+        <span className="w-6 h-6 text-primary-foreground bg-primary rounded text-xs font-bold flex items-center justify-center">
           {index}
         </span>
-        <span className="text-xl font-bold text-white">{title}</span>
+        <span className="text-xl font-bold text-foreground">{title}</span>
       </CardTitle>
     </CardHeader>
   );
@@ -88,22 +88,22 @@ export default function OrderForm({
         <div
           className="
       md:w-96
-      bg-zinc-900
-      border border-purple-500/50
+      bg-card
+      border border-primary/50
       shadow-lg
-      shadow-purple-500/10
-      text-white
+      shadow-primary/10
+      text-foreground
       rounded-xl
       p-4
     "
         >
           <div className="flex items-start gap-3">
-            <div className="w-2 h-2 mt-2 rounded-full bg-red-500" />
+            <div className="w-2 h-2 mt-2 rounded-full bg-destructive" />
 
             <div className="flex-1">
               <p className="font-semibold text-sm">Erro ao enviar formulário</p>
 
-              <p className="text-xs text-zinc-400 mt-1">{state.message}</p>
+              <p className="text-xs text-muted-foreground mt-1">{state.message}</p>
             </div>
           </div>
         </div>
@@ -112,9 +112,9 @@ export default function OrderForm({
   }, [state]);
 
   return (
-    <div className="pt-24 pb-20 bg-zinc-950 text-white min-h-screen space-y-10">
+    <div className="pt-24 pb-20 bg-background text-foreground min-h-screen space-y-10">
       <div className="text-center space-y-6">
-        <div className="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center mx-auto rotate-3 shadow-lg shadow-purple-900/30">
+        <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto rotate-3 shadow-lg shadow-primary/20">
           <Ruler size={30} />
         </div>
 
@@ -122,19 +122,19 @@ export default function OrderForm({
           FORMULÁRIO DE MEDIDAS
         </h1>
 
-        <p className="text-zinc-400 mx-auto text-sm md:text-base">
+        <p className="text-muted-foreground mx-auto text-sm md:text-base">
           Precisamos dessas informações para que seu traje tenha o caimento
           perfeito. Utilize uma fita métrica maleável.
         </p>
       </div>
       {productOrder && (
         <div className="max-w-4xl mx-auto px-4 space-y-10">
-          <Card className="bg-zinc-900 border-zinc-800">
+          <Card className="bg-card border-border">
             {CardHeaderContent(nextStep(), "Revisão do produto")}
             <CardContent>
               <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
                 {/* IMAGEM */}
-                <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-2xl overflow-hidden bg-zinc-800 border border-zinc-700">
+                <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-2xl overflow-hidden bg-muted border border-border">
                   <Image
                     src={productOrder.img}
                     alt={productOrder.name}
@@ -145,15 +145,15 @@ export default function OrderForm({
 
                 {/* INFO */}
                 <div className="text-center md:text-left space-y-2">
-                  <h3 className="text-2xl font-bold text-white">
+                  <h3 className="text-2xl font-bold text-foreground">
                     {productOrder.name}
                   </h3>
 
-                  <p className="text-sm text-purple-400 font-semibold">
+                  <p className="text-sm text-primary font-semibold">
                     Versão: {productOrder.version}
                   </p>
 
-                  <p className="text-sm text-zinc-400">
+                  <p className="text-sm text-muted-foreground">
                     Seu projeto já está quase saindo do papel! Me envie suas
                     informações para começarmos a criar algo incrível para você.
                   </p>
@@ -185,7 +185,7 @@ export default function OrderForm({
             </>
           )}
           {/* 1 - Informações */}
-          <Card className="bg-zinc-900 border-zinc-800">
+          <Card className="bg-card border-border">
             {CardHeaderContent(nextStep(), "Informações Pessoais")}
 
             <CardContent className="grid md:grid-cols-2 gap-6">
@@ -234,7 +234,7 @@ export default function OrderForm({
           </Card>
 
           {/* 2 - Medidas */}
-          <Card className="bg-zinc-900 border-zinc-800">
+          <Card className="bg-card border-border">
             {CardHeaderContent(nextStep(), "Medidas Corporais (cm)")}
 
             <CardContent className="grid grid-cols-2 md:grid-cols-3 gap-6">
@@ -277,7 +277,7 @@ export default function OrderForm({
           </Card>
 
           {/* 4 - Endereço */}
-          <Card className="bg-zinc-900 border-zinc-800">
+          <Card className="bg-card border-border">
             {CardHeaderContent(nextStep(), "Endereço para Entrega")}
 
             <CardContent className="space-y-6">
@@ -364,7 +364,7 @@ export default function OrderForm({
           </Card>
 
           {/* 3 - Projeto */}
-          <Card className="bg-zinc-900 border-zinc-800">
+          <Card className="bg-card border-border">
             {CardHeaderContent(nextStep(), "Observações do Projeto")}
 
             <CardContent className="space-y-6">
@@ -390,7 +390,7 @@ export default function OrderForm({
               />
               {!productOrder && (
                 <div className="space-y-3">
-                  <Label className="text-xs font-bold text-gray-500 uppercase">
+                  <Label className="text-xs font-bold text-muted-foreground uppercase">
                     Fotos de referência (máx. 5)
                   </Label>
 
@@ -399,7 +399,7 @@ export default function OrderForm({
                     {images.map((img, index) => (
                       <div
                         key={index}
-                        className="rounded-lg relative w-full aspect-square bg-zinc-800 border border-zinc-700 overflow-hidden"
+                        className="rounded-lg relative w-full aspect-square bg-muted border border-border overflow-hidden"
                       >
                         <img
                           src={img.preview}
@@ -411,7 +411,7 @@ export default function OrderForm({
                         <button
                           type="button"
                           onClick={() => removeImage(index)}
-                          className="absolute top-1 right-1 bg-black/70 text-white text-xs px-2 py-1 rounded hover:bg-red-600"
+                          className="absolute top-1 right-1 bg-background/70 text-foreground text-xs px-2 py-1 rounded hover:bg-destructive"
                         >
                           ✕
                         </button>
@@ -426,8 +426,8 @@ export default function OrderForm({
                           images.length != index ? "hidden" : "block",
                         )}
                       >
-                        <label className="flex items-center justify-center w-full aspect-square bg-zinc-800 border border-dashed border-zinc-700 cursor-pointer hover:border-purple-500 rounded-lg">
-                          <span className="text-3xl text-zinc-400">+</span>
+                        <label className="flex items-center justify-center w-full aspect-square bg-muted border border-dashed border-border cursor-pointer hover:border-primary rounded-lg">
+                          <span className="text-3xl text-muted-foreground">+</span>
 
                           <input
                             type="file"
@@ -441,7 +441,7 @@ export default function OrderForm({
                     ))}
                   </div>
 
-                  <p className="text-xs text-zinc-500">
+                  <p className="text-xs text-muted-foreground">
                     Você pode anexar até 5 imagens.
                   </p>
                 </div>
@@ -454,14 +454,14 @@ export default function OrderForm({
             <Button
               type="button"
               variant="outline"
-              className="flex-1 bg-primary text-white border-zinc-700 p-6 rounded-lg font-bold"
+              className="flex-1 bg-primary text-primary-foreground border-border p-6 rounded-lg font-bold"
             >
               Cancelar
             </Button>
 
             <Button
               type="submit"
-              className="flex-2 bg-purple-600 p-6 rounded-lg font-black text-lg hover:bg-purple-800"
+              className="flex-2 bg-primary p-6 rounded-lg font-black text-lg hover:bg-primary/90"
             >
               {isPending ? "ENCOMENDANDO ..." : "ENVIAR SOLICITAÇÃO"}
             </Button>

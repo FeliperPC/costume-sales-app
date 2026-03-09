@@ -46,14 +46,14 @@ export default function FAQSection() {
     <section className="w-full max-w-4xl mx-auto py-16 sm:px-6 lg:px-8">
       {/* Header */}
       <header className="flex sm:flex-row sm:items-start gap-6 mb-14 items-center">
-        <div className="p-4 bg-purple-600/10 rounded-2xl flex items-center">
-          <HelpCircle className="text-purple-500" size={28} />
+        <div className="p-4 bg-primary/10 rounded-2xl flex items-center">
+          <HelpCircle className="text-primary" size={28} />
         </div>
         <div>
-          <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">
+          <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-foreground">
             Perguntas Comuns
           </h2>
-          <p className="text-zinc-500 text-sm sm:text-base">
+          <p className="text-muted-foreground text-sm sm:text-base">
             Tudo o que você precisa saber antes de encomendar seu traje
           </p>
         </div>
@@ -66,9 +66,9 @@ export default function FAQSection() {
             key={index}
             value={`item-${index}`}
             className="
-        border border-zinc-800
+        border border-border
         rounded-xl sm:rounded-2xl
-        bg-zinc-900/40 backdrop-blur-sm
+        bg-card/40 backdrop-blur-sm
         px-4 sm:px-6
       "
           >
@@ -77,8 +77,8 @@ export default function FAQSection() {
           text-left
           text-sm sm:text-base md:text-lg
           font-semibold
-          text-zinc-200
-          hover:text-purple-400
+          text-foreground/80
+          hover:text-primary
           transition-colors
           py-4
         "
@@ -88,7 +88,7 @@ export default function FAQSection() {
 
             <AccordionContent
               className="
-          text-zinc-400
+          text-muted-foreground
           leading-relaxed
           text-sm sm:text-base
           pb-4 sm:pb-6

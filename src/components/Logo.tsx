@@ -12,7 +12,7 @@ export default function Logo() {
         />
       </div>
 
-      <span className="text-2xl font-black bg-clip-text text-white">
+      <span className="text-2xl font-black bg-clip-text text-foreground">
         PINDA<span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">.STUDIO</span><span className="ml-1">®</span>
       </span>
     </>

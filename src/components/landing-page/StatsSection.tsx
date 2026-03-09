@@ -24,7 +24,7 @@ const stats = [
 
 export default function StatsSection() {
   return (
-    <section className="py-16 md:py-24 bg-zinc-900/30 ">
+    <section className="py-16 md:py-24 bg-card/30 ">
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 max-w-4xl w-full mx-auto">
         {stats.map(({ hasBorder, value, label, icon }) => {
           const Icon = icon;
@@ -34,18 +34,18 @@ export default function StatsSection() {
               key={label}
               className={cn(
                 "space-y-2 text-center",
-                hasBorder && "sm:border-x sm:border-white/10 sm:px-8"
+                hasBorder && "sm:border-x sm:border-border sm:px-8"
               )}
             >
               <div className="flex items-center justify-center gap-3">
-                <Icon className="size-9 text-purple-400" />
+                <Icon className="size-9 text-primary" />
 
-                <p className="text-5xl md:text-5xl font-black bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+                <p className="text-5xl md:text-5xl font-black bg-gradient-to-r from-primary to-ring bg-clip-text text-transparent">
                   {value}
                 </p>
               </div>
 
-              <p className="text-md md:text-base text-gray-300 font-medium">
+              <p className="text-md md:text-base text-muted-foreground font-medium">
                 {label}
               </p>
             </div>

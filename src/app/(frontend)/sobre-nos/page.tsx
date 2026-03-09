@@ -8,7 +8,7 @@ import BadgeComponent from "@/components/BadgeComponent";
 export default async function AboutUs() {
   const { data: aboutData } = await sanityFetch({ query: ABOUT_QUERY });
   return (
-    <section className="relative pt-20 sm:pt-24 md:pt-32 pb-16 md:pb-24 bg-zinc-950 text-white min-h-screen flex items-center">
+    <section className="relative pt-20 sm:pt-24 md:pt-32 pb-16 md:pb-24 bg-background text-foreground min-h-screen flex items-center">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
           {/* TEXTO */}
@@ -19,7 +19,7 @@ export default async function AboutUs() {
               {aboutData.title}
             </h1>
 
-            <p className="text-zinc-400 text-sm sm:text-base md:text-lg leading-relaxed max-w-xl">
+            <p className="text-muted-foreground text-sm sm:text-base md:text-lg leading-relaxed max-w-xl">
               {aboutData.description}
             </p>
 
@@ -35,8 +35,8 @@ export default async function AboutUs() {
 
           {/* IMAGEM */}
           <div className="relative order-1 lg:order-2 mb-8 md:mb-0 mt-10 md:mt-none">
-            <div className="absolute -inset-4 sm:-inset-6 bg-purple-500/10 blur-3xl rounded-full"></div>
-            <div className="relative overflow-hidden rounded-2xl sm:rounded-[2rem] border border-zinc-800 shadow-2xl">
+            <div className="absolute -inset-4 sm:-inset-6 bg-primary/10 blur-3xl rounded-full"></div>
+            <div className="relative overflow-hidden rounded-2xl sm:rounded-[2rem] border border-border shadow-2xl">
               <Image
                 src={aboutData.image.asset.url}
                 alt="Pinda em ação"

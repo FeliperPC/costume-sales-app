@@ -15,7 +15,7 @@ export function CustomSuitSection({
 }) {
   const {image,title,badge,description,callToAction} = customSuitData
   return (
-    <section className="relative overflow-hidden py-20 md:py-32 bg-zinc-950">
+    <section className="relative overflow-hidden py-20 md:py-32 bg-background">
       {/* Background Glow */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-yellow-500/5 blur-[120px] -z-10" />
 
@@ -27,14 +27,14 @@ export function CustomSuitSection({
               {title}
             </h2>
 
-            <p className="text-zinc-400 text-base md:text-lg leading-relaxed max-w-xl">
+            <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-xl">
               {description}
             </p>
 
           <Button
             size="lg"
             asChild
-            className="uppercase mt-20 w-full lg:w-auto bg-purple-600 hover:bg-purple-700 py-7 rounded-xl font-black text-xl flex items-center justify-center gap-3 transition-all shadow-xl shadow-purple-900/20"
+            className="uppercase mt-20 w-full lg:w-auto bg-primary hover:bg-primary/90 py-7 rounded-xl font-black text-xl flex items-center justify-center gap-3 transition-all shadow-xl shadow-primary/20"
           >
             <Link href={"/pedido"}>
               <Hammer className="size-5" /> {callToAction}
@@ -46,7 +46,7 @@ export function CustomSuitSection({
         <div className="relative order-1 md:order-2">
           <div className="absolute -inset-6 bg-yellow-500/5 blur-[80px] rounded-full" />
 
-          <Card className="p-0 relative overflow-hidden rounded-3xl border-zinc-800 bg-zinc-900 group">
+          <Card className="p-0 relative overflow-hidden rounded-3xl border-border bg-card group">
             <Image
               src={image.asset.url}
               alt="Processo de Artesania Cosmaker"
@@ -56,7 +56,7 @@ export function CustomSuitSection({
               priority
             />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
           </Card>
         </div>
       </div>

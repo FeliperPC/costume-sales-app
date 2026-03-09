@@ -8,14 +8,14 @@ export default async function Testimonials() {
   const { data } = await sanityFetch({ query: REVIEWERS_QUERY });
 
   return (
-    <section className="py-24 bg-zinc-900/30 ">
+    <section className="py-24 bg-card/30 ">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-black mb-4 text-white uppercase tracking-tighter">
+          <h2 className="text-4xl font-black mb-4 text-foreground uppercase tracking-tighter">
             Da Fantasia à Realidade
           </h2>
-          <p className="text-gray-400">
+          <p className="text-muted-foreground">
             Mais Que Cosplay. Uma Experiência Completa! Confira o depoimento de quem já transformou o sonho em realidade.
           </p>
         </div>
@@ -25,7 +25,7 @@ export default async function Testimonials() {
           {data.map((rev, i) => (
             <Card
               key={i}
-              className="group bg-zinc-900 border-zinc-800 overflow-hidden rounded-3xl transition-all hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 p-0"
+              className="group bg-card border-border overflow-hidden rounded-3xl transition-all hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 p-0"
             >
               {/* Image */}
               <div className="relative aspect-4/5 overflow-hidden w-full">
@@ -45,17 +45,17 @@ export default async function Testimonials() {
                     <Star
                       key={star}
                       size={14}
-                      className="fill-purple-500 text-purple-500"
+                      className="fill-primary text-primary"
                     />
                   ))}
                 </div>
 
-                <p className="text-gray-300 text-sm mb-4 leading-relaxed line-clamp-3">
+                <p className="text-muted-foreground text-sm mb-4 leading-relaxed line-clamp-3">
                   &quot;{rev.clientReview?.[0]?.children?.[0]?.text ?? ""}&quot;
                 </p>
 
-                <div className="pt-4 border-t border-zinc-800">
-                  <span className="font-bold text-white text-sm uppercase tracking-widest">
+                <div className="pt-4 border-t border-border">
+                  <span className="font-bold text-foreground text-sm uppercase tracking-widest">
                     {rev.name}
                   </span>
                 </div>

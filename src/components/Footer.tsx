@@ -7,7 +7,7 @@ import { Instagram } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-black py-20 border-t border-zinc-900">
+    <footer className="bg-background py-20 border-t border-border">
       <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-12">
         
         {/* Brand */}
@@ -16,7 +16,7 @@ export function Footer() {
             <Logo />
           </div>
 
-          <p className="text-gray-500 max-w-sm mb-8">
+          <p className="text-muted-foreground max-w-sm mb-8">
             Referência mundial em produção de cosplays de alto nível.
             Cada detalhe é planejado para que você se sinta o próprio personagem.
           </p>
@@ -25,11 +25,11 @@ export function Footer() {
             <Button
               size="icon"
               variant="secondary"
-              className="rounded-full bg-zinc-900 hover:bg-purple-600 transition-colors"
+              className="rounded-full bg-card hover:bg-primary transition-colors"
               asChild
             >
               <Link href="https://www.instagram.com/pinda.studio/" target="_blank">
-                <Instagram size={18} className="text-gray-400 hover:text-white" />
+                <Instagram size={18} className="text-muted-foreground hover:text-foreground" />
               </Link>
             </Button>
           </div>
@@ -37,11 +37,11 @@ export function Footer() {
 
         {/* Oficina */}
         <Card className="bg-transparent border-0 shadow-none p-0">
-          <h4 className="font-bold text-white mb-6 uppercase tracking-widest text-sm">
+          <h4 className="font-bold text-foreground mb-6 uppercase tracking-widest text-sm">
             Oficina
           </h4>
 
-          <p className="text-gray-500 text-sm mb-4">
+          <p className="text-muted-foreground text-sm mb-4">
             Rua dos Heróis, 1234
             <br />
             São Paulo, SP - Brasil
@@ -49,7 +49,7 @@ export function Footer() {
 
           <Link
             href="mailto:spiderpinda@hotmail.com"
-            className="text-purple-400 font-bold hover:underlinnpe"
+            className="text-primary font-bold hover:underlinnpe"
           >
             spiderpinda@hotmail.com
           </Link>
@@ -57,8 +57,8 @@ export function Footer() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 mt-20">
-        <Separator className="bg-zinc-900" />
-        <div className="text-center text-xs text-gray-600 pt-8">
+        <Separator className="bg-card" />
+        <div className="text-center text-xs text-muted-foreground/60 pt-8">
           © 2026 Pinda Studio. Todos os direitos reservados.
         </div>
       </div>

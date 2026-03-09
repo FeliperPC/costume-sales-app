@@ -5,23 +5,23 @@ import { Ghost, ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-zinc-950 flex items-center justify-center px-4 py-24">
-      <Card className="max-w-md w-full bg-zinc-900 border-zinc-800 text-center shadow-2xl rounded-2xl">
+    <div className="min-h-screen bg-background flex items-center justify-center px-4 py-24">
+      <Card className="max-w-md w-full bg-card border-border text-center shadow-2xl rounded-2xl">
         <CardContent className="p-10">
-          <div className="w-24 h-24 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mx-auto mb-8 border border-red-500/30">
+          <div className="w-24 h-24 bg-destructive/10 text-destructive rounded-full flex items-center justify-center mx-auto mb-8 border border-destructive/30">
             <Ghost size={48} />
           </div>
 
-          <h1 className="text-3xl font-black mb-4 text-white">
+          <h1 className="text-3xl font-black mb-4 text-foreground">
             PÁGINA NÃO ENCONTRADA
           </h1>
 
-          <p className="text-zinc-400 mb-6">
+          <p className="text-muted-foreground mb-6">
             O conteúdo que você está tentando acessar não existe ou pode ter
             sido removido.
           </p>
 
-          <p className="text-sm text-zinc-500 mb-8">
+          <p className="text-sm text-muted-foreground mb-8">
             Verifique o endereço digitado ou volte para a loja principal.
           </p>
 

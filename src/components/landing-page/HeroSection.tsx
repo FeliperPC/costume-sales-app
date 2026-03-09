@@ -30,7 +30,7 @@ export default function HeroSection({
             priority
             className="object-cover opacity-40 grayscale-[50%]"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-zinc-950/80 to-zinc-950" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/80 to-background" />
         </div>
 
         {/* Content */}
@@ -39,10 +39,10 @@ export default function HeroSection({
             <BadgeComponent value="Elite Cosmaker" />
             <h1 className="text-5xl md:text-8xl font-black mb-6 leading-none">
               DÊ VIDA AO SEU <br />
-              <span className="text-purple-500">PERSONAGEM</span>
+              <span className="text-primary">PERSONAGEM</span>
             </h1>
 
-            <p className="text-lg text-gray-400 mb-8 max-w-lg">
+            <p className="text-lg text-muted-foreground mb-8 max-w-lg">
               Somos especialistas em transformar fantasia em realidade.
               Armaduras, trajes e acessórios produzidos com as medidas exatas do
               seu corpo.
@@ -51,7 +51,7 @@ export default function HeroSection({
             <Button
               size="lg"
               asChild
-              className="uppercase font-black bg-purple-600 hover:bg-purple-700 p-4 rounded-xl"
+              className="uppercase font-black bg-primary hover:bg-primary/90 p-4 rounded-xl"
             >
               <Link href={"/trajes"}>
                 Ver Catálogo <ChevronRight className="size-5" />

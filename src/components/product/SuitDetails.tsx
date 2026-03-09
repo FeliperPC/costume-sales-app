@@ -66,13 +66,13 @@ export default function SuitDetails({
     });
   }
   return (
-    <div className="pt-24 pb-20 bg-zinc-950 text-white min-h-screen">
+    <div className="pt-24 pb-20 bg-background text-foreground min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
         {/* Back Button */}
         <Button
           asChild
           variant="ghost"
-          className="mb-8 text-zinc-400 hover:bg-transparent hover:text-white"
+          className="mb-8 text-muted-foreground hover:bg-transparent hover:text-foreground"
         >
           <Link href={"/trajes"}>
             <ChevronLeft className="mr-2 h-4 w-4" />
@@ -83,7 +83,7 @@ export default function SuitDetails({
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Gallery */}
           <div className="space-y-4">
-            <Card className="p-0 overflow-hidden border-zinc-800 bg-zinc-900">
+            <Card className="p-0 overflow-hidden border-border bg-card">
               <CardContent className="p-0 aspect-[4/5] relative">
                 <Image
                   src={currentImage!!!}
@@ -98,7 +98,7 @@ export default function SuitDetails({
               {product.version.images.slice(0, 4).map((img, i) => (
                 <Card
                   key={i}
-                  className="p-0 overflow-hidden border-zinc-800 bg-zinc-900 cursor-pointer opacity-70 hover:opacity-100 transition"
+                  className="p-0 overflow-hidden border-border bg-card cursor-pointer opacity-70 hover:opacity-100 transition"
                   onClick={() => setCurrentImage(img.asset.url)}
                 >
                   <CardContent className="aspect-square relative">
@@ -121,7 +121,7 @@ export default function SuitDetails({
             </h1>
 
             <div className="flex flex-col gap-4 mb-8">
-              <div className="text-3xl text-purple-400 font-bold">
+              <div className="text-3xl text-primary font-bold">
                 R$ {product.version.price}
               </div>
               {formatedDate.length ? (
@@ -141,14 +141,14 @@ export default function SuitDetails({
               )}
             </div>
 
-            <p className="text-zinc-400 text-lg mb-8 leading-relaxed">
+            <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
               {product.version.fullDescription[0].children[0].text}
             </p>
 
             {/* Variants */}
-            <Card className="bg-zinc-900 border-zinc-800 mb-8 p-0">
+            <Card className="bg-card border-border mb-8 p-0">
               <CardContent className="p-6">
-                <h3 className="font-bold mb-4 flex items-center gap-2 uppercase tracking-tight text-sm text-zinc-300">
+                <h3 className="font-bold mb-4 flex items-center gap-2 uppercase tracking-tight text-sm text-muted-foreground">
                   <Info className="h-4 w-4" />
                   Versões Disponíveis
                 </h3>
@@ -160,8 +160,8 @@ export default function SuitDetails({
                       variant="secondary"
                       size="sm"
                       className={cn(
-                        "bg-zinc-800 hover:bg-purple-600 rounded-lg text-sm font-medium transition-colors text-white",
-                        selectedVersion == v.versionSlug && "bg-purple-600",
+                        "bg-muted hover:bg-primary rounded-lg text-sm font-medium transition-colors text-foreground",
+                        selectedVersion == v.versionSlug && "bg-primary",
                       )}
                       onClick={() => handleChangeVersion(v.versionSlug)}
                     >
@@ -177,7 +177,7 @@ export default function SuitDetails({
               <Button
                 asChild
                 size="lg"
-                className="w-full bg-purple-600 hover:bg-purple-700 py-7 rounded-xl font-black text-xl flex items-center justify-center gap-3 transition-all shadow-xl shadow-purple-900/20"
+                className="w-full bg-primary hover:bg-primary/90 py-7 rounded-xl font-black text-xl flex items-center justify-center gap-3 transition-all shadow-xl shadow-primary/20"
               >
                 <Link href={`/pedido/${product.slug}/${selectedVersion}`}>
                   <ShoppingCart className="mr-3 size-5 " />
@@ -185,7 +185,7 @@ export default function SuitDetails({
                 </Link>
               </Button>
 
-              <div className="flex items-center justify-center gap-6 text-xs text-zinc-500 uppercase font-bold tracking-widest">
+              <div className="flex items-center justify-center gap-6 text-xs text-muted-foreground uppercase font-bold tracking-widest">
                 <span className="flex items-center gap-1">
                   <ShieldCheck size={14} /> Exclusivo
                 </span>

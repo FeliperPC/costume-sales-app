@@ -23,13 +23,13 @@ export function ProductCard({
         />
 
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
 
         {/* Bottom Content */}
         <div className="absolute bottom-6 left-6 right-6 z-10">
-          <h4 className="text-xl font-bold mb-1 text-white">{product.name}</h4>
+          <h4 className="text-xl font-bold mb-1 text-foreground">{product.name}</h4>
 
-          <p className="text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <p className="text-sm text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             Ver detalhes do projeto
           </p>
         </div>

@@ -9,7 +9,7 @@ export default function AdminLayout({
 }>) {
   return (
     <div className="grid">
-      <div className="p-4 bg-[#13141b] text-white border-b border-purple-500/30">
+      <div className="p-4 bg-background text-foreground border-b border-primary/30">
         <Button asChild variant="ghost">
           <Link href="/">
             <ArrowLeftIcon className="size-4" />

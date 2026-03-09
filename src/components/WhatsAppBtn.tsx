@@ -8,7 +8,7 @@ export default function WhatsAppButton() {
   return (
     <div className="fixed bottom-6 right-6 z-[60] group flex items-center gap-3">
       {/* Tooltip Desktop */}
-      <div className="hidden md:block bg-zinc-900 text-white px-4 py-2 rounded-full text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 border border-purple-500/40 backdrop-blur-md shadow-lg">
+      <div className="hidden md:block bg-card text-foreground px-4 py-2 rounded-full text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 border border-primary/40 backdrop-blur-md shadow-lg">
         Dúvidas? Fale conosco!
       </div>
 

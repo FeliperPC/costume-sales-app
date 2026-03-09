@@ -43,12 +43,12 @@ export const FormField = ({
   stretch = false,
 }: FormFieldProps) => {
   const fieldsStyle =
-    "w-full bg-zinc-800 border border-zinc-700 p-4 focus:outline-none focus:border-purple-500 text-white";
+    "w-full bg-muted border border-border p-4 focus:outline-none focus:border-ring text-foreground";
 
   return (
     <div className={cn("space-y-2", stretch && "md:col-span-2")}>
       <Label
-        className="text-xs font-bold text-gray-500 uppercase"
+        className="text-xs font-bold text-muted-foreground uppercase"
         htmlFor={id}
       >
         {label}
