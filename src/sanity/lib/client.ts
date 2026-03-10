@@ -6,7 +6,7 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: true, // It is used to fetch. Set to false if statically generating pages, using ISR or tag-based revalidation
+  useCdn: false, // It is used to fetch. Set to false if statically generating pages, using ISR or tag-based revalidation
 })
 
 export const writeClient = createClient({
