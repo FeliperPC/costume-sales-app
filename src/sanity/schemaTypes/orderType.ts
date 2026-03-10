@@ -1,7 +1,9 @@
+import {PackageIcon} from '@sanity/icons'
 import { defineType, defineField } from "sanity";
 
 export const orderType = defineType({
   name: "order",
+  icon: PackageIcon,
   title: "Encomendas",
   type: "document",
   groups: [

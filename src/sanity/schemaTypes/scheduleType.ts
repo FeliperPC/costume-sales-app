@@ -1,8 +1,10 @@
 import { defineField, defineType } from "sanity";
+import {ClockIcon} from '@sanity/icons'
 
 // Singleton
 export const scheduleType = defineType({
   name: "schedule",
+  icon: ClockIcon,
   title: "Disponibilidade de Agenda",
   type: "document",
   fields: [

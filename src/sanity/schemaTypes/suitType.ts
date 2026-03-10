@@ -1,7 +1,9 @@
 import { defineField, defineType } from 'sanity'
+import {BoltIcon} from '@sanity/icons'
 
 export const suitType = defineType({
   name: 'suit',
+  icon: BoltIcon,
   title: 'Trajes',
   type: 'document',
   fields: [
