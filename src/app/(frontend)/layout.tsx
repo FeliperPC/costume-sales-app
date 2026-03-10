@@ -3,6 +3,8 @@ import Navbar from "@/components/NavBar";
 import WhatsAppButton from "@/components/WhatsAppBtn";
 import { SanityLive } from "@/sanity/lib/live";
 
+export const dynamic = "force-dynamic";
+
 export default function RootLayout({
   children,
 }: Readonly<{
