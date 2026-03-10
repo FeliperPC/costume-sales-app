@@ -8,9 +8,9 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative">
       {/* HEADER */}
-      <header className="border-b border-primary/30 bg-[#13141b]">
+      <header className="fixed top-0 left-0 right-0 z-50 border-b border-primary/30 bg-[#13141b]">
         <div className="flex h-16 items-center px-6 justify-between">
           <div className="flex items-center gap-6">
             <span className="text-2xl font-black bg-clip-text text-foreground">
@@ -38,7 +38,7 @@ export default function AdminLayout({
       </header>
 
       {/* CONTEÚDO */}
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 mt-16">{children}</main>
     </div>
   );
 }
