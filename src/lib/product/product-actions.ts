@@ -10,7 +10,7 @@ export const orderProductAction = async (
   formData: FormData,
 ): Promise<FormState> => {
   const rawData = Object.fromEntries(formData.entries());
-  let dataToValidate = rawData;
+  let dataToValidate: Record<string, FormDataEntryValue | File[]> = rawData;
   if (!rawData.productName) {
     const {
       referenceImage_1,
@@ -19,7 +19,7 @@ export const orderProductAction = async (
       referenceImage_4,
       referenceImage_5,
       ...rest
-    } = rawData as any;
+    } = rawData;
 
     dataToValidate = {
       ...rest,
@@ -29,7 +29,7 @@ export const orderProductAction = async (
         referenceImage_3,
         referenceImage_4,
         referenceImage_5,
-      ].filter((file: File) => file?.size > 0),
+      ].filter((file): file is File => file instanceof File && file.size > 0),
     };
   }
 
@@ -73,8 +73,13 @@ export const orderProductAction = async (
       ...validated.data,
     });
     redirect(`/pedido/sucesso?orderId=${_id}`);
-  } catch (error: any) {
-    if (error?.digest?.startsWith("NEXT_REDIRECT")) {
+  } catch (error: unknown) {
+    if (
+      error instanceof Error &&
+      "digest" in error &&
+      typeof error.digest === "string" &&
+      error.digest.startsWith("NEXT_REDIRECT")
+    ) {
       throw error;
     }
     return {

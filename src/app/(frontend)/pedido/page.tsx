@@ -396,7 +396,7 @@ export default function OrderForm({
                         key={index}
                         className="rounded-lg relative w-full aspect-square bg-muted border border-border overflow-hidden"
                       >
-                        <img
+                        <Image
                           src={img.preview}
                           alt="preview"
                           className="w-full h-full object-cover"

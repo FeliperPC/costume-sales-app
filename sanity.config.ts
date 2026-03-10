@@ -15,7 +15,15 @@ export default defineConfig({
   basePath: '/admin',
   projectId,
   dataset,
-  schema,
+  schema: {
+    ...schema,
+    templates: (templates) =>
+      templates.map((t) =>
+        t.schemaType === 'schedule'
+          ? {...t, value: {_id: 'schedule', _type: 'schedule', isOpen: true}}
+          : t,
+      ),
+  },
   plugins: [
     ptBRLocale(),
     structureTool({structure}),

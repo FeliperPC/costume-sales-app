@@ -3,6 +3,7 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { ABOUT_QUERY } from "@/sanity/lib/queries";
 import IconInfo from "@/components/IconInfo";
 import * as Icons from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import BadgeComponent from "@/components/BadgeComponent";
 
 export default async function AboutUs() {
@@ -26,9 +27,9 @@ export default async function AboutUs() {
             {/* FEATURES */}
             <div className="space-y-5 sm:space-y-6 md:space-y-8">
               {aboutData?.features?.map((feature) => {
-                const IconComponent = Icons[feature.icon as keyof typeof Icons];
+                const IconComponent = Icons[feature.icon as keyof typeof Icons] as LucideIcon;
               return(
-                  <IconInfo key={feature.title} title={feature.title} icon={IconComponent as any} description={feature.description} />
+                  <IconInfo key={feature.title} title={feature.title} icon={IconComponent} description={feature.description} />
               )})}
             </div>
           </div>

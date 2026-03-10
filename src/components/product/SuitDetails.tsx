@@ -17,7 +17,7 @@ import {
   SUIT_BY_SLUG_QUERY_RESULT,
   SUIT_VERSIONS_MENU_QUERY_RESULT,
 } from "@/sanity/types";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { cn, formatDate } from "@/lib/utils";
 import FAQSection from "./FAQSection";
@@ -37,21 +37,22 @@ export default function SuitDetails({
   const router = useRouter();
   const pathname = usePathname();
 
-  const [selectedVersion, setSelectedVersion] = useState<string | null>(
-    version,
-  );
+  const selectedVersion = version;
 
+  const [prevVersion, setPrevVersion] = useState(version);
   const [currentImage, setCurrentImage] = useState(
     product.version.images[0].asset.url,
   );
+
+  if (version !== prevVersion) {
+    setPrevVersion(version);
+    setCurrentImage(product.version.images[0].asset.url);
+  }
+
   let formatedDate = "";
   if (reopenScheduleDate) {
     formatedDate = formatDate(reopenScheduleDate);
   }
-  useEffect(() => {
-    setSelectedVersion(version);
-    setCurrentImage(product.version.images[0].asset.url);
-  }, [version]);
 
   function handleChangeVersion(versionName: string) {
     if (versionName == selectedVersion) {
@@ -86,8 +87,8 @@ export default function SuitDetails({
             <Card className="p-0 overflow-hidden border-border bg-card">
               <CardContent className="p-0 aspect-[4/5] relative">
                 <Image
-                  src={currentImage!!!}
-                  alt={product.name!!!}
+                  src={currentImage}
+                  alt={product.name}
                   fill
                   className="object-cover"
                 />
