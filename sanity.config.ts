@@ -8,7 +8,7 @@ import {dataset, projectId} from './src/sanity/env'
 import {schema} from './src/sanity/schemaTypes'
 import {structure} from './src/sanity/structure'
 
-const RESTRICTED_TYPES = ['order', 'review', 'schedule']
+const RESTRICTED_TYPES = ['review', 'schedule']
 const BLOCKED_CREATION = ['order', 'review', 'schedule', 'about', 'customSuit']
 
 export default defineConfig({

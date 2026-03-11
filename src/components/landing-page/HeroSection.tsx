@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, HatGlasses } from "lucide-react";
 import Link from "next/link";
 import heroBackground from "../../../public/heroBackground.jpg";
 import { ScheduleBadge } from "./ScheduleBadge";
@@ -43,18 +43,18 @@ export default function HeroSection({
             </h1>
 
             <p className="text-lg text-muted-foreground mb-8 max-w-lg">
-              Somos especialistas em transformar fantasia em realidade.
-              Armaduras, trajes e acessórios produzidos com as medidas exatas do
-              seu corpo.
+            Somos especialistas em transformar fantasia em realidade.
+            Criamos armaduras, trajes e acessórios com acabamento de alta qualidade, 
+            disponíveis em tamanhos padronizados ou sob medida.
             </p>
 
             <Button
               size="lg"
               asChild
-              className="uppercase font-black bg-primary hover:bg-primary/90 p-4 rounded-xl"
+              className="uppercase w-86 bg-primary hover:bg-primary/90 py-7 rounded-xl font-black text-xl flex items-center justify-center gap-3 transition-all shadow-xl shadow-primary/20"
             >
               <Link href={"/trajes"}>
-                Ver Catálogo <ChevronRight className="size-5" />
+              <HatGlasses className="size-5" /> Ver Catálogo
               </Link>
             </Button>
           </div>

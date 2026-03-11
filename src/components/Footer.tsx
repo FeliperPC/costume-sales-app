@@ -7,7 +7,7 @@ import { Instagram } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-background py-20">
+    <footer className="bg-background border border-top-background py-20">
       <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-12">
         
         {/* Brand */}

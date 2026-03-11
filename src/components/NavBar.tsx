@@ -25,13 +25,6 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="/sobre-nos"
-            className="hover:text-primary transition-colors"
-          >
-            Sobre Nós
-          </Link>
-
-          <Link
             href="/admin"
             className="hover:text-primary transition-colors"
           >

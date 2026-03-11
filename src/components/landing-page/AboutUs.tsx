@@ -9,8 +9,8 @@ import BadgeComponent from "@/components/BadgeComponent";
 export default async function AboutUs() {
   const { data: aboutData } = await sanityFetch({ query: ABOUT_QUERY });
   return (
-    <section className="relative pt-20 sm:pt-24 md:pt-32 pb-16 md:pb-24 bg-background text-foreground min-h-screen flex items-center">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <section className="relative bg-card/30 text-foreground min-h-screen flex items-center">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
           {/* TEXTO */}
           <div className="order-2 md:order-1 space-y-6 sm:space-y-8">
