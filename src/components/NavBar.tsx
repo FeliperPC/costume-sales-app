@@ -53,14 +53,6 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="/sobre-nos"
-            onClick={() => setIsMenuOpen(false)}
-            className="text-left py-2 text-foreground"
-          >
-            Sobre nós
-          </Link>
-
-          <Link
             href="/trajes"
             onClick={() => setIsMenuOpen(false)}
             className="text-left py-2 text-foreground"
