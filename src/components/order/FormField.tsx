@@ -27,6 +27,9 @@ interface FormFieldProps {
   select?: boolean;
   type?: React.HTMLInputTypeAttribute;
   stretch?: boolean;
+  inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"];
+  maxLength?: number;
+  value?: string;
 }
 
 export const FormField = ({
@@ -41,6 +44,9 @@ export const FormField = ({
   select = false,
   type = "text",
   stretch = false,
+  inputMode,
+  maxLength,
+  value,
 }: FormFieldProps) => {
   const fieldsStyle =
     "w-full bg-muted border border-border p-4 focus:outline-none focus:border-ring text-foreground";
@@ -92,6 +98,9 @@ export const FormField = ({
           name={name}
           placeholder={placeholder}
           required={required}
+          inputMode={inputMode}
+          maxLength={maxLength}
+          value={value}
           onChange={
             onChange as (e: React.ChangeEvent<HTMLInputElement>) => void
           }

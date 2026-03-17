@@ -19,12 +19,65 @@ const initialState: FormState = {
   message: "",
 };
 
+const measurementFieldIds = new Set([
+  "height",
+  "weight",
+  "shoeSize",
+  "chest",
+  "waist",
+  "hip",
+  "thigh",
+  "knee",
+  "calf",
+  "biceps",
+  "forearm",
+  "wrist",
+  "neck",
+  "palm_circumference",
+  "hand_length",
+]);
+
+const formatPhoneMask = (value: string) => {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+
+  if (!digits) return "";
+  if (digits.length <= 2) return `(${digits}`;
+
+  const areaCode = digits.slice(0, 2);
+  const phoneNumber = digits.slice(2);
+  const localPrefixLength = digits.length > 10 ? 5 : 4;
+
+  if (phoneNumber.length <= localPrefixLength) {
+    return `(${areaCode}) ${phoneNumber}`;
+  }
+
+  return `(${areaCode}) ${phoneNumber.slice(0, localPrefixLength)}-${phoneNumber.slice(localPrefixLength)}`;
+};
+
+const formatZipCodeMask = (value: string) => {
+  const digits = value.replace(/\D/g, "").slice(0, 8);
+  if (digits.length <= 5) return digits;
+  return `${digits.slice(0, 5)}-${digits.slice(5)}`;
+};
+
+const formatDecimalMeasurement = (value: string) => {
+  const sanitized = value.replace(/[^\d.]/g, "");
+
+  if (!sanitized) return "";
+
+  const [integerPart, ...decimalParts] = sanitized.split(".");
+  const mergedDecimal = decimalParts.join("");
+  const safeInteger = integerPart === "" && mergedDecimal ? "0" : integerPart;
+
+  return mergedDecimal ? `${safeInteger}.${mergedDecimal}` : safeInteger;
+};
+
 export default function OrderForm({
   productOrder,
 }: {
   productOrder?: PRODUCT_ORDER;
 }) {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState<Record<string, string>>({});
   const [images, setImages] = useState<{ file: File; preview: string }[]>([]);
   const [state, formAction, isPending] = useActionState(
     orderProductAction,
@@ -56,10 +109,23 @@ export default function OrderForm({
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name } = e.target;
+    let value = e.target.value;
+
+    if (name === "cellphone") {
+      value = formatPhoneMask(value);
+    } else if (name === "zipCode") {
+      value = formatZipCodeMask(value);
+    } else if (measurementFieldIds.has(name)) {
+      value = formatDecimalMeasurement(value);
+    }
+
+    e.target.value = value;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const CardHeaderContent = (index: number, title: string) => (
@@ -215,6 +281,9 @@ export default function OrderForm({
                 error={errors?.cellphone ?? []}
                 label="Telefone (WhatsApp)"
                 onChange={handleChange}
+                inputMode="numeric"
+                maxLength={15}
+                value={formData.cellphone ?? ""}
               />
 
               <FormField
@@ -259,13 +328,15 @@ export default function OrderForm({
                 <FormField
                   error={errors?.[field.id] ?? []}
                   key={field.id}
-                  type="number"
+                  type="text"
                   name={field.id}
-                  placeholder="00"
+                  placeholder="00.0"
                   required
                   onChange={handleChange}
                   id={field.id}
                   label={field.label}
+                  inputMode="decimal"
+                  value={formData[field.id] ?? ""}
                 />
               ))}
             </CardContent>
@@ -351,8 +422,11 @@ export default function OrderForm({
                   placeholder="00000-000"
                   error={errors?.zipCode ?? []}
                   required
-                  type="number"
+                  type="text"
                   onChange={handleChange}
+                  inputMode="numeric"
+                  maxLength={9}
+                  value={formData.zipCode ?? ""}
                 />
               </div>
             </CardContent>
