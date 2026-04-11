@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pinda.Studio - Cosmaker & Prop Maker
+
+A full-stack e-commerce web application for **Pinda.Studio**, a cosplay costume and prop-making business. Customers can browse available suits/costumes, view detailed product versions, and place custom orders with body measurements for tailored fits.
+
+## Tech Stack
+
+- **Framework:** [Next.js 16](https://nextjs.org) (App Router, React 19)
+- **CMS:** [Sanity v4](https://www.sanity.io) (embedded studio at `/admin`)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com) + [shadcn/ui](https://ui.shadcn.com)
+- **Forms:** React Hook Form + Zod validation
+- **Language:** TypeScript
+
+## Features
+
+- **Landing Page** - Hero section, about us, stats, custom suit showcase, and client reviews
+- **Product Catalog** (`/trajes`) - Paginated listing of available costumes with card previews
+- **Product Details** (`/trajes/[slug]`) - Detailed view with version variants, image galleries, pricing, and rich descriptions
+- **Order System** (`/pedido`) - Multi-section order form collecting:
+  - Customer info (name, email, phone, gender)
+  - Full body measurements (chest, waist, hip, thigh, knee, calf, biceps, forearm, wrist, neck, palm, hand length, height, weight, shoe size)
+  - Shipping address (Brazilian format with CEP)
+  - Optional notes, deadline, and reference images
+- **Custom Suit Orders** - Customers can request fully custom costumes beyond the catalog
+- **Admin Panel** (`/admin`) - Sanity Studio for managing suits, orders, reviews, and scheduling
+- **WhatsApp Integration** - Floating contact button for direct communication
+- **Real-time Content** - Sanity Live for instant content updates without redeployment
+
+## Content Schema
+
+| Document     | Description                                      |
+|-------------|--------------------------------------------------|
+| `suit`      | Costumes with multiple version variants           |
+| `order`     | Customer orders with measurements and address     |
+| `review`    | Client testimonials                               |
+| `schedule`  | Singleton for managing open/closed booking status |
+| `about`     | About section content                             |
+| `customSuit`| Custom suit section content                       |
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Node.js 18+
+- A Sanity project (get one at [sanity.io](https://www.sanity.io))
+
+### Environment Variables
+
+Create a `.env.local` file:
+
+```env
+NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
+NEXT_PUBLIC_SANITY_DATASET=production
+NEXT_PUBLIC_SANITY_API_VERSION=2026-02-14
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000) for the storefront and [http://localhost:3000/admin](http://localhost:3000/admin) for the Sanity Studio.
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/
+│   ├── (frontend)/          # Public-facing pages
+│   │   ├── page.tsx         # Landing page
+│   │   ├── trajes/          # Product catalog & detail pages
+│   │   └── pedido/          # Order form pages
+│   └── admin/               # Sanity Studio
+├── components/
+│   ├── landing-page/        # Hero, AboutUs, Stats, Reviews, etc.
+│   ├── product/             # ProductCard, SuitDetails, SuitsList, FAQ
+│   ├── order/               # Order form fields
+│   └── ui/                  # shadcn/ui components
+├── lib/
+│   └── product/             # Server actions & validations
+└── sanity/
+    ├── schemaTypes/         # Sanity document schemas
+    └── lib/                 # Client, queries, image helpers
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Command         | Description              |
+|----------------|--------------------------|
+| `npm run dev`  | Start development server |
+| `npm run build`| Production build         |
+| `npm run start`| Start production server  |
+| `npm run lint` | Run ESLint               |
