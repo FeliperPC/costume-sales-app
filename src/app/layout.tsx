@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto, Geist } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
+import "./globals.css";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
