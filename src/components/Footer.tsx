@@ -42,9 +42,11 @@ export function Footer() {
           </h4>
 
           <p className="text-muted-foreground text-sm mb-4">
-            Rua dos Heróis, 1234
+            Rua Dr. Monteiro César, 63 sala 03
             <br />
-            São Paulo, SP - Brasil
+            Centro, Pindamonhangaba
+            <br />
+            São Paulo - SP
           </p>
 
           <Link
