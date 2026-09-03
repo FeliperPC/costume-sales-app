@@ -13,7 +13,7 @@ export default function RootLayout({
   return (
     <main>
       <Navbar />
-      <WhatsAppButton />
+      {/* <WhatsAppButton /> */}
       {children}
       <Footer />
       <SanityLive />
